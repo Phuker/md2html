@@ -59,7 +59,7 @@ There are so many similar projects with similar names in PyPI, `md2html`, `md-to
 $ md2html --help
 usage: md2html [-h] [-v] [-V] [-t TITLE] [-f] [-o OUTPUT_FILE] [--no-min-css] [--min-html] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [input_file]
 
-Convert .md to a single .html web page
+Yet another markdown to html converter, generate an offline all-in-one single HTML file.
 
 positional arguments:
   input_file            If omitted or "-", use stdin.
@@ -73,8 +73,8 @@ optional arguments:
   -f, --force           Force overwrite if output file exists
   -o OUTPUT_FILE, --output-file OUTPUT_FILE
                         If omitted, auto decide. If "-", stdout.
-  --no-min-css          Disable minify CSS
-  --min-html            Enable minify HTML
+  --no-min-css          Disable minify CSS, default enabled.
+  --min-html            Enable minify HTML, default disabled.
   --head-insert HTML    HTML to insert to the start of <head>
   --head-append HTML    HTML to append to the end of <head>
   --body-insert HTML    HTML to insert to the start of <body>

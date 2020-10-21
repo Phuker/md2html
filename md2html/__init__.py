@@ -64,6 +64,36 @@ if sys.flags.optimize > 0:
     sys.exit(1)
 
 
+# obj: fd or str
+def read_file(obj):
+    try:
+        if type(obj) == str:
+            logging.info('Reading %r', obj)
+            with open(obj, 'r') as f:
+                return f.read()
+        else:
+            logging.info('Reading %s', obj.name)
+            return obj.read()
+    except Exception as e:
+        logging.error('%r %r', type(e), e)
+        sys.exit(1)
+
+
+# obj: fd or str
+def write_file(obj, content):
+    try:
+        if type(obj) == str:
+            logging.info('Writing %d Bytes to %r', len(content), obj)
+            with open(obj, 'w') as f:
+                f.write(content)
+        else:
+            logging.info('Writing %d Bytes to %s', len(content), obj.name)
+            obj.write(content)
+    except Exception as e:
+        logging.error('%r %r', type(e), e)
+        sys.exit(1)
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Yet another markdown to html converter, generate an offline all-in-one single HTML file.',
@@ -77,8 +107,8 @@ def parse_args():
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
     parser.add_argument('-o', '--output-file', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
 
-    parser.add_argument('--no-min-css', dest='min_css', action='store_false', help='Disable minify CSS')
-    parser.add_argument('--min-html', dest='min_html', action='store_true', help='Enable minify HTML')
+    parser.add_argument('--no-min-css', dest='min_css', action='store_false', help='Disable minify CSS, default enabled.')
+    parser.add_argument('--min-html', dest='min_html', action='store_true', help='Enable minify HTML, default disabled.')
     parser.add_argument('--head-insert', metavar='HTML', help='HTML to insert to the start of <head>')
     parser.add_argument('--head-append', metavar='HTML', help='HTML to append to the end of <head>')
     parser.add_argument('--body-insert', metavar='HTML', help='HTML to insert to the start of <body>')
@@ -169,22 +199,22 @@ def render(args, md):
 '''
     title = args.title
 
-    with open(os.path.join(args.script_dir, 'main.css'), 'r') as f:
-        css_main = f.read()
-    with open(os.path.join(args.script_dir, 'github-markdown.css'), 'r') as f:
-        css_github = f.read()
-    with open(os.path.join(args.script_dir, 'pygments.css'), 'r') as f:
-        css_pygments = f.read()
-    
     head_insert = args.head_insert if args.head_insert else ''
     head_append = args.head_append if args.head_append else ''
     body_insert = args.body_insert if args.body_insert else ''
     body_append = args.body_append if args.body_append else ''
 
+    css_main = read_file(os.path.join(args.script_dir, 'main.css'))
+    css_github = read_file(os.path.join(args.script_dir, 'github-markdown.css'))
+    css_pygments = read_file(os.path.join(args.script_dir, 'pygments.css'))
+
     css_content_list = [css_github, css_pygments, css_main]
     if args.min_css:
         logging.info('Minify CSS')
+        size_old = sum(map(len, css_content_list))
         css_content_list = [css_minify(_, comments=False) for _ in css_content_list]
+        size_new = sum(map(len, css_content_list))
+        logging.info('Size shrunk %d B/%d B = %.2f %%', size_old - size_new, size_old, (size_old - size_new) / size_old * 100)
     css_html_block = '\n'.join(['<style type="text/css">\n' + _ + '\n</style>' for _ in css_content_list])
 
     logging.info('Converting Markdown')
@@ -192,7 +222,10 @@ def render(args, md):
 
     if args.min_html:
         logging.info('Minify HTML')
+        size_old = len(html_content)
         html_content = html_minify(html_content, comments=False)
+        size_new = len(html_content)
+        logging.info('Size shrunk %d B/%d B = %.2f %%', size_old - size_new, size_old, (size_old - size_new) / size_old * 100)
 
     template_args = {
         'title': escape(title),
@@ -206,36 +239,6 @@ def render(args, md):
     return template.format(**template_args)
 
 
-# obj: fd or str
-def read_file(obj):
-    try:
-        if type(obj) == str:
-            logging.info('Reading %r', obj)
-            with open(obj, 'r') as f:
-                return f.read()
-        else:
-            logging.info('Reading %s', obj.name)
-            return obj.read()
-    except Exception as e:
-        logging.error('%r %r', type(e), e)
-        sys.exit(1)
-
-
-# obj: fd or str
-def write_file(obj, content):
-    try:
-        if type(obj) == str:
-            logging.info('Writing %d Bytes to %r', len(content), obj)
-            with open(obj, 'w') as f:
-                f.write(content)
-        else:
-            logging.info('Writing %d Bytes to %s', len(content), obj.name)
-            obj.write(content)
-    except Exception as e:
-        logging.error('%r %r', type(e), e)
-        sys.exit(1)
-
-
 def print_version_exit():
     print(f'md2html version {__version__}')
     print(__doc__)
@@ -247,8 +250,8 @@ def main():
 
     if args.verbose > 0:
         logging.root.setLevel(logging.DEBUG)
+        logging.debug('Verbose output enabled')
     
-    logging.debug('If you see this, verbose output is enabled.')
     logging.debug('argparse result: %r', args)
 
     if args.version:
