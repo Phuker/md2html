@@ -1,0 +1,12 @@
+.DS_Store
+._.DS_Store
+
+*.pyc
+.python-version
+
+*.egg-info/
+build/
+dist/
+
+.idea/
+.vscode/

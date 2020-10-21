@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    width: 75%;
+    font-size: 87.5%;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.markdown-body {
+    font-size: unset;
+}
+
+.markdown-body, .markdown-body * {
+    font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif !important;
+}
+
+.markdown-body a.headerlink {
+    color: #000;
+    margin-left: 0.5em;
+    visibility: hidden;
+    vertical-align: text-top;
+    text-decoration: none;
+}
+.markdown-body h1:hover a.headerlink,
+.markdown-body h2:hover a.headerlink,
+.markdown-body h3:hover a.headerlink,
+.markdown-body h4:hover a.headerlink,
+.markdown-body h5:hover a.headerlink,
+.markdown-body h6:hover a.headerlink {
+    visibility: visible;
+}
+
+/* 
+Admonition alerts
+Modified from Bootstrap v4.5.2 CSS .alert
+*/
+.admonition {
+    position: relative;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+}
+.admonition p {
+    margin: 0.5em 0;
+}
+.admonition-title {
+    font-weight: bolder;
+}
+.admonition.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.admonition.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+.admonition.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.admonition.danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* footnote */
+sup {
+    /* Restore browser defaults */
+    vertical-align: super;
+    font-size: smaller;
+}
+a.footnote-backref {
+    font-family: monospace; /* avoid emoji in all devices, especially iOS */
+}
+
+/* @media - Small */
+@media(max-width:767px) {
+    body {
+        width: 100%;
+        padding: 1.5em;
+    }
+}
+
+/* @media - Medium */
+@media(min-width:768px) and (max-width:1199px){
+    body {
+        width: 90%;
+    }
+}
+
+/* @media - Large */
+@media(min-width:1200px){
+
+}

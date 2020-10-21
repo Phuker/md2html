@@ -1,0 +1,10 @@
+markdown
+
+# force update requirements
+pygments
+
+css-html-js-minify
+
+# Python-Markdown extensions
+markdown-link-attr-modifier
+py-gfm
