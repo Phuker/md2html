@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 
+"""
+Yet another markdown to html converter, generate an offline all-in-one single HTML file.
+
+License:
+GNU General Public License v3.0
+
+Home page:
+https://github.com/Phuker/md2html
+"""
+
 import os
 import sys
 import argparse
@@ -228,6 +238,7 @@ def write_file(obj, content):
 
 def print_version_exit():
     print(f'md2html version {__version__}')
+    print(__doc__)
     sys.exit(1)
 
 
