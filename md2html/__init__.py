@@ -19,7 +19,7 @@ import gfm
 
 from css_html_js_minify import css_minify, html_minify
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 logging_stream = sys.stderr
 logging_format = '\033[1m%(asctime)s [%(levelname)s]:\033[0m%(message)s'
@@ -56,9 +56,12 @@ if sys.flags.optimize > 0:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Convert .md to a single .html web page',
+        description='Yet another markdown to html converter, generate an offline all-in-one single HTML file.',
         add_help=True
     )
+    parser.add_argument('-v', '--verbose', action='count', default=0, help='Verbose output')
+    parser.add_argument('-V', '--version', action='store_true', help='Output version info and exit')
+
     parser.add_argument('-t', '--title', help='If omitted, generate from input filename')
     parser.add_argument('-f', '--force', action='store_true', help='Force overwrite if output file exists')
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
@@ -72,7 +75,6 @@ def parse_args():
     parser.add_argument('--body-append', metavar='HTML', help='HTML to append to the end of <body>')
 
     args = parser.parse_args()
-    logging.debug('argparse result: %r', args)
     
     # set args.input_file_obj
     if args.input_file is None:
@@ -224,8 +226,23 @@ def write_file(obj, content):
         sys.exit(1)
 
 
+def print_version_exit():
+    print(f'md2html version {__version__}')
+    sys.exit(1)
+
+
 def main():
     args = parse_args()
+
+    if args.verbose > 0:
+        logging.root.setLevel(logging.DEBUG)
+    
+    logging.debug('If you see this, verbose output is enabled.')
+    logging.debug('argparse result: %r', args)
+
+    if args.version:
+        print_version_exit()
+
     if type(args.output_file_obj) == str and os.path.exists(args.output_file_obj) and not args.force:
         logging.error('%r already exists. Use -f to overwrite.', args.output_file_obj)
         sys.exit(1)
