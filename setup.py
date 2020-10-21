@@ -3,14 +3,11 @@
 
 from setuptools import setup
 
-import md2html
-
 with open('Readme.PyPI.md', 'r') as f:
     long_description = f.read()
 
 setup(
     name='md2html-phuker',
-    version=md2html.__version__,
     description='Yet another markdown to html converter, generate an offline all-in-one single HTML file.',
     long_description=long_description,
     long_description_content_type="text/markdown",
