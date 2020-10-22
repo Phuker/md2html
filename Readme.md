@@ -97,7 +97,9 @@ md2html --title 'baz' < foo.md > bar.html
 
 ## Tests
 
-- Arguments: input x oupput x force x title, etc.
+```bash
+make test
+```
 
 ## FAQ
 

@@ -94,7 +94,7 @@ def write_file(obj, content):
         sys.exit(1)
 
 
-def parse_args():
+def parse_args(arg_list=sys.argv[1:]):
     parser = argparse.ArgumentParser(
         description='Yet another markdown to html converter, generate an offline all-in-one single HTML file.',
         add_help=True
@@ -114,33 +114,35 @@ def parse_args():
     parser.add_argument('--body-insert', metavar='HTML', help='HTML to insert to the start of <body>')
     parser.add_argument('--body-append', metavar='HTML', help='HTML to append to the end of <body>')
 
-    args = parser.parse_args()
+    args = parser.parse_args(arg_list)
     
     # set args.input_file_obj
-    if args.input_file is None:
+    if not args.input_file: # None, ''
         args.input_file_obj = sys.stdin
     elif args.input_file == '-':
         args.input_file_obj = sys.stdin
     else:
+        args.input_file = os.path.abspath(os.path.expanduser(args.input_file))
         args.input_file_obj = args.input_file # str
     
     # set args.output_file_obj
     if args.output_file == '-':
         args.output_file_obj = sys.stdout
-    elif args.output_file is None:
-        if args.input_file is None or args.input_file == '-':
+    elif not args.output_file: # None, ''
+        if not args.input_file or args.input_file == '-':
             args.output_file_obj = sys.stdout
         else:
             args.output_file_obj = os.path.splitext(args.input_file)[0] + '.html' # str
     else:
+        args.output_file = os.path.abspath(os.path.expanduser(args.output_file))
         args.output_file_obj = args.output_file # str
 
-    # set args.title
+    # set args.title if not specified
     if args.title is None:
-        if args.input_file is None or args.input_file == '-':
+        if not args.input_file or args.input_file == '-':
             args.title = 'Untitled'
         else:
-            args.title = os.path.splitext(args.input_file)[0]
+            args.title = os.path.splitext(os.path.basename(args.input_file))[0]
 
     # set args.script_dir
     args.script_dir = os.path.abspath(os.path.dirname(__file__))
@@ -252,6 +254,8 @@ def main():
         logging.root.setLevel(logging.DEBUG)
         logging.debug('Verbose output enabled')
     
+    logging.debug('This file is: %r', __file__)
+    logging.debug('sys.argv = %r', sys.argv)
     logging.debug('argparse result: %r', args)
 
     if args.version:

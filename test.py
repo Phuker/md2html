@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+
+import os
+import sys
+import unittest
+
+import md2html
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+PWD = os.getcwd()
+
+TITLE_UNTITLED = 'Untitled'
+
+print(f'Testing md2html: {md2html!r}')
+
+class TestParseArgs(unittest.TestCase):
+    def test_parse_args_matrix(self):
+        path_in_1 = '~/abc/defg.md'
+        path_in_1_result = os.path.abspath(os.path.expanduser(path_in_1))
+        path_out_1 = '~/abc/defg.html'
+        path_out_1_result = os.path.abspath(os.path.expanduser(path_out_1))
+        title_result_1 = 'defg'
+
+        path_in_2 = '../abcdef/defgxx.md'
+        path_in_2_result = os.path.abspath(os.path.join(PWD, path_in_2))
+        path_out_2 = '../abcdef/defgxx.html'
+        path_out_2_result = os.path.abspath(os.path.join(PWD, path_out_2))
+        title_result_2 = 'defgxx'
+
+        title_x = 'zxcvbnm'
+
+        cases = {
+            (): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('-o', ''): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('-o', '-'): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('-o', path_out_1): (sys.stdin, path_out_1_result, TITLE_UNTITLED),
+            ('-o', path_out_2): (sys.stdin, path_out_2_result, TITLE_UNTITLED),
+
+            ('', ): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('', '-o', ''): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('', '-o', '-'): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('', '-o', path_out_1): (sys.stdin, path_out_1_result, TITLE_UNTITLED),
+            ('', '-o', path_out_2): (sys.stdin, path_out_2_result, TITLE_UNTITLED),
+
+            ('-', ): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('-', '-o', ''): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('-', '-o', '-'): (sys.stdin, sys.stdout, TITLE_UNTITLED),
+            ('-', '-o', path_out_1): (sys.stdin, path_out_1_result, TITLE_UNTITLED),
+            ('-', '-o', path_out_2): (sys.stdin, path_out_2_result, TITLE_UNTITLED),
+
+            (path_in_1, ): (path_in_1_result, path_out_1_result, title_result_1),
+            (path_in_1, '-o', ''): (path_in_1_result, path_out_1_result, title_result_1),
+            (path_in_1, '-o', '-'): (path_in_1_result, sys.stdout, title_result_1),
+            (path_in_1, '-o', path_out_1): (path_in_1_result, path_out_1_result, title_result_1),
+            (path_in_1, '-o', path_out_2): (path_in_1_result, path_out_2_result, title_result_1),
+
+            (path_in_2, ): (path_in_2_result, path_out_2_result, title_result_2),
+            (path_in_2, '-o', ''): (path_in_2_result, path_out_2_result, title_result_2),
+            (path_in_2, '-o', '-'): (path_in_2_result, sys.stdout, title_result_2),
+            (path_in_2, '-o', path_out_1): (path_in_2_result, path_out_1_result, title_result_2),
+            (path_in_2, '-o', path_out_2): (path_in_2_result, path_out_2_result, title_result_2),
+
+            ('-t', title_x, ): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '-o', ''): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '-o', '-'): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '-o', path_out_1): (sys.stdin, path_out_1_result, title_x),
+            ('-t', title_x, '-o', path_out_2): (sys.stdin, path_out_2_result, title_x),
+
+            ('-t', title_x, '', ): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '', '-o', ''): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '', '-o', '-'): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '', '-o', path_out_1): (sys.stdin, path_out_1_result, title_x),
+            ('-t', title_x, '', '-o', path_out_2): (sys.stdin, path_out_2_result, title_x),
+
+            ('-t', title_x, '-', ): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '-', '-o', ''): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '-', '-o', '-'): (sys.stdin, sys.stdout, title_x),
+            ('-t', title_x, '-', '-o', path_out_1): (sys.stdin, path_out_1_result, title_x),
+            ('-t', title_x, '-', '-o', path_out_2): (sys.stdin, path_out_2_result, title_x),
+
+            ('-t', title_x, path_in_1, ): (path_in_1_result, path_out_1_result, title_x),
+            ('-t', title_x, path_in_1, '-o', ''): (path_in_1_result, path_out_1_result, title_x),
+            ('-t', title_x, path_in_1, '-o', '-'): (path_in_1_result, sys.stdout, title_x),
+            ('-t', title_x, path_in_1, '-o', path_out_1): (path_in_1_result, path_out_1_result, title_x),
+            ('-t', title_x, path_in_1, '-o', path_out_2): (path_in_1_result, path_out_2_result, title_x),
+
+            ('-t', title_x, path_in_2, ): (path_in_2_result, path_out_2_result, title_x),
+            ('-t', title_x, path_in_2, '-o', ''): (path_in_2_result, path_out_2_result, title_x),
+            ('-t', title_x, path_in_2, '-o', '-'): (path_in_2_result, sys.stdout, title_x),
+            ('-t', title_x, path_in_2, '-o', path_out_1): (path_in_2_result, path_out_1_result, title_x),
+            ('-t', title_x, path_in_2, '-o', path_out_2): (path_in_2_result, path_out_2_result, title_x),
+        }
+
+        for case in cases:
+            result_tuple = cases[case]
+            args = md2html.parse_args(case)
+            
+            self.assertEqual(args.input_file_obj, result_tuple[0])
+            self.assertEqual(args.output_file_obj, result_tuple[1])
+            self.assertEqual(args.title, result_tuple[2])
+
+
+if __name__ == "__main__":
+    unittest.main()

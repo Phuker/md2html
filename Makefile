@@ -1,11 +1,12 @@
 PYTHON = python3
 
-.PHONY: default reinstall install upload uninstall rebuild build clean
+.PHONY: default reinstall install upload uninstall rebuild build clean gen-demo test
 
 default:
 	make rebuild
 	make install
 	make clean
+	make test
 
 reinstall:
 	make uninstall
@@ -18,6 +19,7 @@ install: dist/*.whl
 	$(PYTHON) -m pip show md2html-phuker
 
 upload: dist/*.whl dist/*.tar.gz
+	make test
 	$(PYTHON) -m twine check dist/*.whl dist/*.tar.gz
 	# username is: __token__
 	$(PYTHON) -m twine upload dist/*.whl dist/*.tar.gz
@@ -29,6 +31,8 @@ rebuild build dist/*.whl dist/*.tar.gz: ./setup.py ./md2html/__init__.py
 	# make sure clean old versions
 	make clean
 
+	make gen-demo
+
 	$(PYTHON) ./setup.py sdist bdist_wheel
 
 	# 'pip install' is buggy when .egg-info exist
@@ -37,4 +41,8 @@ rebuild build dist/*.whl dist/*.tar.gz: ./setup.py ./md2html/__init__.py
 clean:
 	rm -rf *.egg-info build dist
 
+gen-demo: ./md2html/__init__.py ./demo/demo.md
+	$(PYTHON) ./md2html/__init__.py ./demo/demo.md -vf
 
+test: ./test.py
+	$(PYTHON) ./test.py -vv
