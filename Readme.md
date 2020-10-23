@@ -4,24 +4,30 @@ Yet another markdown to html converter, generate an offline all-in-one single HT
 
 This is a *feng-he-guai* program. Python code based on:
 
-- [Python-Markdown](https://python-markdown.github.io/)
-- My `Python-Markdown` extension: [Phuker/markdown_link_attr_modifier](https://github.com/Phuker/markdown_link_attr_modifier)
-- A `Python-Markdown` extension: [Zopieux/py-gfm](https://github.com/Zopieux/py-gfm)
-- A `Python-Markdown` extension: [juancarlospaco/css-html-js-minify](https://github.com/juancarlospaco/css-html-js-minify)
+- [Python-Markdown](https://python-markdown.github.io/) and its officially supported extensions
+- [Phuker/markdown_link_attr_modifier](https://github.com/Phuker/markdown_link_attr_modifier), my `Python-Markdown` extension to add attributes like `target="_blank"` to `<a>` tags
+- [Zopieux/py-gfm](https://github.com/Zopieux/py-gfm), a `Python-Markdown` extension to support some [GFM](https://github.github.com/gfm/) features
+- [juancarlospaco/css-html-js-minify](https://github.com/juancarlospaco/css-html-js-minify), a library to minify CSS and HTML code
 
 CSS based on:
 
-- Main theme: [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
-- Code highlight: [Pygments](https://pygments.org/)
+- [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css), the GitHub Markdown style, main theme
+- [Pygments](https://pygments.org/), style for Code highlight code blocks
 - Others copy & modify from [my blog](https://phuker.github.io/)
 
 ## Features
+
+### Generated HTML
 
 The principle is: keep it simple.
 
 - All-in-one single HTML file
 - Completely offline, no CDN, no web fonts
 - No JavaScript
+
+### Markdown syntax
+
+This is a Markdown dialect, similar but different from [GitHub Flavored Markdown (GFM)](https://github.github.com/gfm/).
 
 Default enabled Markdown features:
 
@@ -31,13 +37,13 @@ Default enabled Markdown features:
 - [New Line to Break](https://python-markdown.github.io/extensions/nl2br/)
 - [Admonition](https://python-markdown.github.io/extensions/admonition/)
 - `<a target="_blank"`
-- Part of GitHub-Flavored Markdown
+- Part of GitHub Flavored Markdown
 
-For details, see `md2html/__init__.py`, `convert()` function, and [Python-Markdown Extensions docs](https://python-markdown.github.io/extensions/).
+For details, see `convert()` function of `md2html/__init__.py`, and the demo below.
 
-## Demo
+#### Demo
 
-Click [Download ZIP](https://github.com/Phuker/md2html/archive/main.zip) to download all files, extract it, open `demo/demo.html` in your browser.
+Download [.zip source code files](https://github.com/Phuker/md2html/archive/main.zip), extract it. In the directory `demo/`, there is a `demo.html` which is generated from `demo.md`. You can see `demo.md` to see supported syntax, and open `demo.html` in your browser to see its result.
 
 ## Requirements
 
@@ -49,7 +55,7 @@ Click [Download ZIP](https://github.com/Phuker/md2html/archive/main.zip) to down
 python3 -m pip install -U md2html-phuker
 ```
 
-There are so many similar projects with similar names in PyPI, `md2html`, `md-to-html`, `markdown2html`, `markdown-to-html`, `mrkdwn2html` ... I have to add a suffix to keep away from this war of naming.
+There are too many similar projects with similar names in PyPI, `md2html`, `md-to-html`, `markdown2html`, `markdown-to-html`, `mrkdwn2html` ... I have to add a suffix to keep away from this war of naming.
 
 ## Usage
 
@@ -81,6 +87,8 @@ optional arguments:
   --body-append HTML    HTML to append to the end of <body>
 ```
 
+If you are not sure about what will happen if you combine `[-o OUTPUT_FILE]`, `[input_file]` and `[-t TITLE]`, see `test.py`, which contains tens of input cases and their intended behaviors.
+
 ### Convert a file
 
 ```bash
@@ -92,7 +100,11 @@ This program will generate `foo.html` in the same dir, with HTML title `foo`.
 ### Read from `stdin`, output to `stdout`, specify HTML title
 
 ```bash
-md2html --title 'baz' < foo.md > bar.html
+md2html --title 'baz' <foo.md >bar.html
+```
+
+```bash
+cat foo.md | md2html -t 'baz' >bar.html
 ```
 
 ## Tests

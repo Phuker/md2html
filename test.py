@@ -16,6 +16,17 @@ TITLE_UNTITLED = 'Untitled'
 print(f'Testing md2html: {md2html!r}')
 
 class TestParseArgs(unittest.TestCase):
+    def test_parse_args_wrong_input(self):
+        cases = (
+            ('-t', ),
+            ('a.md', 'b.md'),
+            ('-o', ),
+            ('--body-insert', ),
+            ('a.md', '-o'),
+        )
+        for case in cases:
+            self.assertRaises(SystemExit, md2html.parse_args, case)
+
     def test_parse_args_matrix(self):
         path_in_1 = '~/abc/defg.md'
         path_in_1_result = os.path.abspath(os.path.expanduser(path_in_1))
