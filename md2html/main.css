@@ -70,6 +70,29 @@ Modified from Bootstrap v4.5.2 CSS .alert
     border-color: #f5c6cb;
 }
 
+/* Table of Contents */
+div[class=toc] {
+    width: fit-content;
+    min-width: 33%;
+
+    padding: 1em 0;
+    margin: 10px 0;
+
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    background-color: #F8F8F8;
+
+    font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif;
+}
+div[class=toc] ul {
+    list-style: none;
+    margin: 0 2em;
+    padding: 0;
+}
+div[class=toc] > ul {
+    margin: 0 1.5em;
+}
+
 /* footnote */
 sup {
     /* Restore browser defaults */
