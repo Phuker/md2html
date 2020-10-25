@@ -181,30 +181,27 @@ def convert(md):
 def render(args, md):
     logging.info('Start rendering')
     template = '''<!doctype html>
+<!-- Generated with https://github.com/Phuker/md2html -->
 <html>
 <head>
-{head_insert}
-<meta charset="utf-8">
+{head_insert}<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
 <title>{title}</title>
 {css_html_block}
-{head_append}
-</head>
+{head_append}</head>
 <body>
-{body_insert}
-<div class="markdown-body">
+{body_insert}<div class="markdown-body">
 {html_content}
 </div>
-{body_append}
-</body>
+{body_append}</body>
 </html>
 '''
     title = args.title
 
-    head_insert = args.head_insert if args.head_insert else ''
-    head_append = args.head_append if args.head_append else ''
-    body_insert = args.body_insert if args.body_insert else ''
-    body_append = args.body_append if args.body_append else ''
+    head_insert = args.head_insert + '\n' if args.head_insert else ''
+    head_append = args.head_append + '\n' if args.head_append else ''
+    body_insert = args.body_insert + '\n' if args.body_insert else ''
+    body_append = args.body_append + '\n' if args.body_append else ''
 
     css_main = read_file(os.path.join(args.script_dir, 'main.css'))
     css_github = read_file(os.path.join(args.script_dir, 'github-markdown.css'))
