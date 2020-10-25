@@ -180,7 +180,7 @@ def convert(md):
 
 def render(args, md):
     logging.info('Start rendering')
-    template = '''<!doctype html>
+    template = '''<!DOCTYPE html>
 <!-- Generated with https://github.com/Phuker/md2html -->
 <html>
 <head>
