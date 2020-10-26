@@ -10,6 +10,11 @@ body {
 
 .markdown-body {
     font-size: unset;
+    
+    /* Safari not supported */
+    /* overflow-wrap: anywhere; */
+    /* word-break: normal; */
+    word-break: break-word;
 }
 
 .markdown-body, .markdown-body * {
@@ -38,7 +43,7 @@ Modified from Bootstrap v4.5.2 CSS .alert
 */
 .admonition {
     position: relative;
-    padding: 0.5em 1em;
+    padding: 0.5em 1.5em;
     margin-bottom: 1em;
     border: 1px solid transparent;
     border-radius: 0.25em;
@@ -75,8 +80,8 @@ div[class=toc] {
     width: fit-content;
     min-width: 33%;
 
-    padding: 1em 0;
-    margin: 10px 0;
+    padding: 1em 1.5em;
+    margin: 1em 0;
 
     border: 1px solid #EAEAEA;
     border-radius: 3px;
@@ -84,13 +89,17 @@ div[class=toc] {
 
     font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif;
 }
+div[class=toc] li {
+    margin: 0.5em 0;
+    padding: 0;
+}
 div[class=toc] ul {
     list-style: none;
-    margin: 0 2em;
+    margin: 0 0 0 1.5em;
     padding: 0;
 }
 div[class=toc] > ul {
-    margin: 0 1.5em;
+    margin: 0;
 }
 
 /* footnote */
