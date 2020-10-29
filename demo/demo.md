@@ -76,6 +76,30 @@ Ordered list using `1.`, `2.`, etc.
 3. list files: `ls -alh`
 4. `uid=0(root) gid=0(root) groups=0(root)`
 
+嵌套无序列表：
+
+- a b c
+- d e f
+    - a b c
+    - d e f
+        - a b c
+        - d e f
+        - g h i
+    - g h i
+- j k l
+
+嵌套有序列表：
+
+1. a b c
+2. d e f
+    1. a b c
+    2. d e f
+        1. a b c
+        2. d e f
+        3. g h i
+    3. g h i
+3. j k l
+
 ### Task list
 
 非标准语法
