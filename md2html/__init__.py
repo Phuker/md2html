@@ -105,14 +105,17 @@ def parse_args(arg_list=sys.argv[1:]):
     parser.add_argument('-t', '--title', help='If omitted, generate from input filename')
     parser.add_argument('-f', '--force', action='store_true', help='Force overwrite if output file exists')
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
-    parser.add_argument('-o', '--output-file', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
+    parser.add_argument('-o', '--output-file', metavar='FILE', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
+
+    parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
 
     parser.add_argument('--no-min-css', dest='min_css', action='store_false', help='Disable minify CSS, default enabled.')
     parser.add_argument('--min-html', dest='min_html', action='store_true', help='Enable minify HTML, default disabled.')
-    parser.add_argument('--head-insert', metavar='HTML', help='HTML to insert to the start of <head>')
-    parser.add_argument('--head-append', metavar='HTML', help='HTML to append to the end of <head>')
-    parser.add_argument('--body-insert', metavar='HTML', help='HTML to insert to the start of <body>')
-    parser.add_argument('--body-append', metavar='HTML', help='HTML to append to the end of <body>')
+
+    parser.add_argument('--head-insert', metavar='HTML', action='append', default=[], help='HTML to insert to the start of <head>, may specify multiple times.')
+    parser.add_argument('--head-append', metavar='HTML', action='append', default=[], help='HTML to append to the end of <head>, may specify multiple times.')
+    parser.add_argument('--body-insert', metavar='HTML', action='append', default=[], help='HTML to insert to the start of <body>, may specify multiple times.')
+    parser.add_argument('--body-append', metavar='HTML', action='append', default=[], help='HTML to append to the end of <body>, may specify multiple times.')
 
     args = parser.parse_args(arg_list)
     
@@ -143,6 +146,8 @@ def parse_args(arg_list=sys.argv[1:]):
             args.title = 'Untitled'
         else:
             args.title = os.path.splitext(os.path.basename(args.input_file))[0]
+
+    args.append_css = [os.path.abspath(os.path.expanduser(_)) for _ in args.append_css]
 
     # set args.script_dir
     args.script_dir = os.path.abspath(os.path.dirname(__file__))
@@ -198,22 +203,26 @@ def render(args, md):
 '''
     title = args.title
 
-    head_insert = args.head_insert + '\n' if args.head_insert else ''
-    head_append = args.head_append + '\n' if args.head_append else ''
-    body_insert = args.body_insert + '\n' if args.body_insert else ''
-    body_append = args.body_append + '\n' if args.body_append else ''
+    head_insert = ''.join([_ + '\n' for _ in args.head_insert])
+    head_append = ''.join([_ + '\n' for _ in args.head_append])
+    body_insert = ''.join([_ + '\n' for _ in args.body_insert])
+    body_append = ''.join([_ + '\n' for _ in args.body_append])
 
-    css_main = read_file(os.path.join(args.script_dir, 'main.css'))
-    css_github = read_file(os.path.join(args.script_dir, 'github-markdown.css'))
-    css_pygments = read_file(os.path.join(args.script_dir, 'pygments.css'))
+    css_file_list = [
+        os.path.join(args.script_dir, 'github-markdown.css'),
+        os.path.join(args.script_dir, 'pygments.css'),
+        os.path.join(args.script_dir, 'main.css'),
+    ]
+    css_file_list += args.append_css
+    css_content_list = [read_file(_) for _ in css_file_list]
 
-    css_content_list = [css_github, css_pygments, css_main]
     if args.min_css:
         logging.info('Minify CSS')
         size_old = sum(map(len, css_content_list))
         css_content_list = [css_minify(_, comments=False) for _ in css_content_list]
         size_new = sum(map(len, css_content_list))
         logging.info('Size shrunk %d B/%d B = %.2f %%', size_old - size_new, size_old, (size_old - size_new) / size_old * 100)
+    
     css_html_block = '\n'.join(['<style type="text/css">\n' + _ + '\n</style>' for _ in css_content_list])
 
     logging.info('Converting Markdown')
@@ -253,7 +262,7 @@ def main():
     
     logging.debug('This file is: %r', __file__)
     logging.debug('sys.argv = %r', sys.argv)
-    logging.debug('argparse result: %r', args)
+    logging.debug('parse_args() result: %r', args)
 
     if args.version:
         print_version_exit()
@@ -263,6 +272,8 @@ def main():
         sys.exit(1)
     
     logging.info('Page title is: %r', args.title)
+    if len(args.append_css) > 0:
+        logging.info('Append embedded CSS files: %s', ', '.join([repr(_) for _ in args.append_css]))
 
     md = read_file(args.input_file_obj)
     result = render(args, md)

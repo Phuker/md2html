@@ -63,7 +63,7 @@ There are too many similar projects with similar names in PyPI, `md2html`, `md-t
 
 ```console
 $ md2html --help
-usage: md2html [-h] [-v] [-V] [-t TITLE] [-f] [-o OUTPUT_FILE] [--no-min-css] [--min-html] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [input_file]
+usage: md2html [-h] [-v] [-V] [-t TITLE] [-f] [-o FILE] [--append-css FILE] [--no-min-css] [--min-html] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [input_file]
 
 Yet another markdown to html converter, generate an offline all-in-one single HTML file.
 
@@ -77,14 +77,15 @@ optional arguments:
   -t TITLE, --title TITLE
                         If omitted, generate from input filename
   -f, --force           Force overwrite if output file exists
-  -o OUTPUT_FILE, --output-file OUTPUT_FILE
+  -o FILE, --output-file FILE
                         If omitted, auto decide. If "-", stdout.
+  --append-css FILE     Append embedded CSS files, may specify multiple times.
   --no-min-css          Disable minify CSS, default enabled.
   --min-html            Enable minify HTML, default disabled.
-  --head-insert HTML    HTML to insert to the start of <head>
-  --head-append HTML    HTML to append to the end of <head>
-  --body-insert HTML    HTML to insert to the start of <body>
-  --body-append HTML    HTML to append to the end of <body>
+  --head-insert HTML    HTML to insert to the start of <head>, may specify multiple times.
+  --head-append HTML    HTML to append to the end of <head>, may specify multiple times.
+  --body-insert HTML    HTML to insert to the start of <body>, may specify multiple times.
+  --body-append HTML    HTML to append to the end of <body>, may specify multiple times.
 ```
 
 If you are not sure about what will happen if you combine `[-o OUTPUT_FILE]`, `[input_file]` and `[-t TITLE]`, see `test.py`, which contains tens of input cases and their intended behaviors.
