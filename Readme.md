@@ -13,7 +13,7 @@ CSS based on:
 
 - [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css), the GitHub Markdown style, main theme
 - [Pygments](https://pygments.org/), style for Code highlight code blocks
-- Others copy & modify from [my blog](https://phuker.github.io/)
+- Others copy & modify from [my blog](https://phuker.github.io/). The fonts are optimized for contents in Simplified Chinese.
 
 ## Features
 
@@ -41,9 +41,11 @@ Default enabled Markdown features:
 
 For details, see `convert()` function of `md2html/__init__.py`, and the demo below.
 
-#### Demo
+## Demo
 
-Download [.zip source code files](https://github.com/Phuker/md2html/archive/main.zip), extract it. In the directory `demo/`, there is a `demo.html` which is generated from `demo.md`. You can see `demo.md` to see supported syntax, and open `demo.html` in your browser to see its result.
+Download [.zip source code files](https://github.com/Phuker/md2html/archive/main.zip), extract it, and open `demo/demo.html` in your browser.
+
+This file is generated from `demo/demo.md`. You can see its content to see supported syntax.
 
 ## Requirements
 
@@ -88,24 +90,50 @@ optional arguments:
   --body-append HTML    HTML to append to the end of <body>, may specify multiple times.
 ```
 
-If you are not sure about what will happen if you combine `[-o OUTPUT_FILE]`, `[input_file]` and `[-t TITLE]`, see `test.py`, which contains tens of input cases and their intended behaviors.
+If you are not sure about what will happen if you combine `[-o FILE]`, `[input_file]` and `[-t TITLE]`, see `test.py`, which contains tens of input cases and their intended behaviors.
 
 ### Convert a file
+
+Generate `foo.html` in the same dir, with HTML title `foo`:
 
 ```bash
 md2html foo.md
 ```
 
-This program will generate `foo.html` in the same dir, with HTML title `foo`.
+Force overwrite output file if it exists:
 
-### Read from `stdin`, output to `stdout`, specify HTML title
+```bash
+md2html -f foo.md
+```
+
+### Convert from pipe and/or to pipe
+
+Read from `stdin`, output to `stdout`, specify HTML title:
 
 ```bash
 md2html --title 'baz' <foo.md >bar.html
+
+cat foo.md | md2html -t 'baz' >bar.html
 ```
 
+Send output to the screen, and write the same contents to a file:
+
 ```bash
-cat foo.md | md2html -t 'baz' >bar.html
+md2html foo.md -o - | tee bar.html
+```
+
+### Modify generated HTML file
+
+Append CSS files, embed their contents inside `<style>` tags:
+
+```bash
+md2html foo.md --append-css './css/bar.css' --append-css '../baz.css'
+```
+
+Add HTML snippets:
+
+```bash
+md2html --head-append '<script async src="https://example.com/analytics.js"></script>' foo.md
 ```
 
 ## Tests
