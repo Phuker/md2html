@@ -28,11 +28,13 @@ Test links using `[]()`: [https://www.example.com/](https://www.example.com/), [
 
 Test links using `<>`: <https://www.example.com/>, <someone@example.com>
 
+Test auto link: https://www.example.com/
+
 Test long link: <https://www.example.com/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/END/>
 
 引用：
 
-> 我没说过这句话 —— 鲁迅
+> 我没说过这句话——鲁迅
 
 ### verylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongEND
 
@@ -163,7 +165,7 @@ type 为 `danger`，手动指定 title
 Code block with ` ``` `:
 
 ```
-## include <stdio.h>
+# include <stdio.h>
 int main()
 {
     printf("Let's try some code.\n");
@@ -177,24 +179,24 @@ int main()
 Code block with ` ```text`
 
 ```text
-## comment aabb
-## include <stdio.h>
+# comment aabb
+# include <stdio.h>
 import requests
 ```
 
 Code block with ` ```python`
 
 ```python
-## comment aabb
-## include <stdio.h>
+# comment aabb
+# include <stdio.h>
 import requests
 ```
 
 Code block with ` ```c`
 
 ```c
-## comment aabb
-## include <stdio.h>
+# comment aabb
+# include <stdio.h>
 import requests
 ```
 
@@ -218,11 +220,11 @@ def qwerty(foo, bar="baz"):
             print(', '.join(llll))
             foo -= 1
 
-## sample class
-## qqq www eee rrr ttt yyy
+# sample class
+# qqq www eee rrr ttt yyy
 class Human(object):
-    def __init__(self, name=None): ## TODO: set user age
-        self.name = name ## set user name
+    def __init__(self, name=None): # TODO: set user age
+        self.name = name # set user name
         self.judge = lambda x: x >= 0
 
 user = Human("Abcd")
@@ -268,6 +270,235 @@ int main() {
 
     return 0;
 }
+```
+
+#### Test lexers availability
+
+txt
+
+```txt
+<p><a href="https://www.example.com/">txt</a></p>
+```
+
+text
+
+```text
+<p><a href="https://www.example.com/">text</a></p>
+```
+
+shell
+
+```shell
+id -k "fdafe" 32 $(fda id) > ~/shell
+```
+
+bash
+
+```bash
+id -k "fdafe" 32 $(fda id) > ~/bash
+```
+
+python
+
+```python
+# python
+import os
+
+os.path.join('a', 'b')
+```
+
+py3
+
+```py3
+# py3
+import os
+
+os.path.join('a', 'b')
+```
+
+c
+
+```c
+// c
+int main(void)
+{
+    return 0;
+}
+```
+
+cpp
+
+```cpp
+// cpp
+int main(void)
+{
+    return 0;
+}
+```
+
+java
+
+```java
+public class HelloWorld {
+    public static void main(String[] args){
+        System.out.println("Hello World!");
+    }
+}
+```
+
+asm
+
+```asm
+movl -8(%ebp, %edx, 4), %eax
+leal 8(,%eax,4), %eax
+```
+
+md
+
+```md
+# md
+
+[abc](https://b.com/)
+```
+
+markdown
+
+```markdown
+# markdown
+
+[abc](https://b.com/)
+```
+
+xml
+
+```xml
+<note>
+    <to>Tove</to>
+    <from>Jani</from>
+</note>
+```
+
+html
+
+```html
+<p><a href="https://www.example.com/">html</a></p>
+```
+
+js
+
+```js
+document.getElementById('js')
+```
+
+javascript
+
+```javascript
+document.getElementById('javascript')
+```
+
+json
+
+```json
+{
+    "k1": true,
+    "k2": ["foo"]
+}
+```
+
+css
+
+```css
+div {
+    width: 100%;
+}
+```
+
+php
+
+```php
+<?php
+phpinfo();
+echo $ab . $cd;
+>
+```
+
+sql
+
+```sql
+SELECT * FROM users; -- sql
+```
+
+mysql
+
+```mysql
+SELECT * FROM users; # mysql
+```
+
+bat
+
+```bat
+@echo off
+
+echo %bat%
+```
+
+batch
+
+```batch
+@echo off
+
+echo %batch%
+```
+
+ini
+
+```ini
+[test]
+type = ini
+```
+
+console
+
+```console
+root@ubuntu:~# id
+uid=0(root) gid=0(root) groups=0(root)
+root@ubuntu:~#
+```
+
+shell-session
+
+```shell-session
+root@ubuntu:~# id
+uid=0(root) gid=0(root) groups=0(root)
+root@ubuntu:~#
+```
+
+pycon
+
+```pycon
+>>> a = 'pycon'
+>>> print a
+pycon
+>>> 1 / 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: integer division or modulo by zero
+```
+
+matlab
+
+```matlab
+% matlab
+a = xlsread('file1.xlsx', 1, 'B2:B185726')
+area_zero = 1;
+begin_array = [];
+```
+
+hexdump
+
+```hexdump
+00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+00000010  02 00 3e 00 01 00 00 00  c5 48 40 00 00 00 00 00  |..>......H@.....|
 ```
 
 ### Images

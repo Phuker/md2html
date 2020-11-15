@@ -30,7 +30,10 @@
 <li><a href="#%E8%84%9A%E6%B3%A8">脚注</a></li>
 <li><a href="#%E8%87%AA%E5%8A%A8-%3Cbr%3E-%E6%8D%A2%E8%A1%8C">自动 &lt;br&gt; 换行</a></li>
 <li><a href="#%E8%AD%A6%E5%91%8A">警告</a></li>
-<li><a href="#Code-blocks">Code blocks</a></li>
+<li><a href="#Code-blocks">Code blocks</a><ul>
+<li><a href="#Test-lexers-availability">Test lexers availability</a></li>
+</ul>
+</li>
 <li><a href="#Images">Images</a></li>
 <li><a href="#LaTeX-Math">LaTeX Math</a></li>
 <li><a href="#-------%28%3Chr%3E-tag%29">------ (&lt;hr&gt; tag)</a></li>
@@ -66,10 +69,11 @@
 <p>行内代码：<code>verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong verylongverylong END</code></p>
 <p>Test links using <code>[]()</code>: <a href="https://www.example.com/" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank">https://www.example.com/</a>, <a href="http://www.example.com/" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank">http://www.example.com/</a>, <a href="test.html">test.html</a>, <a href="#123456">#123456</a>, <a href="javascript:alert(1)">alert(1)</a>, <a href="mailto:someone@example.com">someone@example.com</a></p>
 <p>Test links using <code>&lt;&gt;</code>: <a href="https://www.example.com/" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank">https://www.example.com/</a>, <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#111;&#109;&#101;&#111;&#110;&#101;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;">&#115;&#111;&#109;&#101;&#111;&#110;&#101;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</a></p>
+<p>Test auto link: https://www.example.com/</p>
 <p>Test long link: <a href="https://www.example.com/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/END/" referrerpolicy="no-referrer" rel="noopener noreferrer" target="_blank">https://www.example.com/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/very/long/END/</a></p>
 <p>引用：</p>
 <blockquote>
-<p>我没说过这句话 —— 鲁迅</p>
+<p>我没说过这句话——鲁迅</p>
 </blockquote>
 <h3 id="verylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongEND">verylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongEND<a class="headerlink" href="#verylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongEND" title="Permanent link">&para;</a></h3>
 <h3 id="Font">Font<a class="headerlink" href="#Font" title="Permanent link">&para;</a></h3>
@@ -213,7 +217,7 @@
 </div>
 <h3 id="Code-blocks">Code blocks<a class="headerlink" href="#Code-blocks" title="Permanent link">&para;</a></h3>
 <p>Code block with <code>```</code>:</p>
-<div class="highlight"><pre><span></span><code>## include &lt;stdio.h&gt;
+<div class="highlight"><pre><span></span><code># include &lt;stdio.h&gt;
 int main()
 {
     printf(&quot;Let&#39;s try some code.\n&quot;);
@@ -225,20 +229,20 @@ int main()
 </code></pre></div>
 
 <p>Code block with <code>```text</code></p>
-<div class="highlight"><pre><span></span><code>## comment aabb
-## include &lt;stdio.h&gt;
+<div class="highlight"><pre><span></span><code># comment aabb
+# include &lt;stdio.h&gt;
 import requests
 </code></pre></div>
 
 <p>Code block with <code>```python</code></p>
-<div class="highlight"><pre><span></span><code><span class="c1">## comment aabb</span>
-<span class="c1">## include &lt;stdio.h&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># comment aabb</span>
+<span class="c1"># include &lt;stdio.h&gt;</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 </code></pre></div>
 
 <p>Code block with <code>```c</code></p>
-<div class="highlight"><pre><span></span><code><span class="cp">## comment aabb</span>
-<span class="cp">## include &lt;stdio.h&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cp"># comment aabb</span>
+<span class="cp"># include &lt;stdio.h&gt;</span>
 <span class="n">import</span> <span class="n">requests</span>
 </code></pre></div>
 
@@ -260,11 +264,11 @@ import requests
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">llll</span><span class="p">))</span>
             <span class="n">foo</span> <span class="o">-=</span> <span class="mi">1</span>
 
-<span class="c1">## sample class</span>
-<span class="c1">## qqq www eee rrr ttt yyy</span>
+<span class="c1"># sample class</span>
+<span class="c1"># qqq www eee rrr ttt yyy</span>
 <span class="k">class</span> <span class="nc">Human</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1">## TODO: set user age</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="c1">## set user name</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1"># TODO: set user age</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="c1"># set user name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">judge</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span>
 
 <span class="n">user</span> <span class="o">=</span> <span class="n">Human</span><span class="p">(</span><span class="s2">&quot;Abcd&quot;</span><span class="p">)</span>
@@ -308,6 +312,176 @@ import requests
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
+</code></pre></div>
+
+<h4 id="Test-lexers-availability">Test lexers availability<a class="headerlink" href="#Test-lexers-availability" title="Permanent link">&para;</a></h4>
+<p>txt</p>
+<div class="highlight"><pre><span></span><code>&lt;p&gt;&lt;a href=&quot;https://www.example.com/&quot;&gt;txt&lt;/a&gt;&lt;/p&gt;
+</code></pre></div>
+
+<p>text</p>
+<div class="highlight"><pre><span></span><code>&lt;p&gt;&lt;a href=&quot;https://www.example.com/&quot;&gt;text&lt;/a&gt;&lt;/p&gt;
+</code></pre></div>
+
+<p>shell</p>
+<div class="highlight"><pre><span></span><code>id -k <span class="s2">&quot;fdafe&quot;</span> <span class="m">32</span> <span class="k">$(</span>fda id<span class="k">)</span> &gt; ~/shell
+</code></pre></div>
+
+<p>bash</p>
+<div class="highlight"><pre><span></span><code>id -k <span class="s2">&quot;fdafe&quot;</span> <span class="m">32</span> <span class="k">$(</span>fda id<span class="k">)</span> &gt; ~/bash
+</code></pre></div>
+
+<p>python</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>py3</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># py3</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>c</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// c</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>cpp</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// cpp</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>java</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">){</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>asm</p>
+<div class="highlight"><pre><span></span><code><span class="nf">movl</span> <span class="mi">-8</span><span class="p">(</span><span class="nv">%ebp</span><span class="p">,</span> <span class="nv">%edx</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nv">%eax</span>
+<span class="nf">leal</span> <span class="mi">8</span><span class="p">(,</span><span class="nv">%eax</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%eax</span>
+</code></pre></div>
+
+<p>md</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># md</span>
+
+[<span class="nt">abc</span>](<span class="na">https://b.com/</span>)
+</code></pre></div>
+
+<p>markdown</p>
+<div class="highlight"><pre><span></span><code># markdown
+
+[abc](https://b.com/)
+</code></pre></div>
+
+<p>xml</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;note&gt;</span>
+    <span class="nt">&lt;to&gt;</span>Tove<span class="nt">&lt;/to&gt;</span>
+    <span class="nt">&lt;from&gt;</span>Jani<span class="nt">&lt;/from&gt;</span>
+<span class="nt">&lt;/note&gt;</span>
+</code></pre></div>
+
+<p>html</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://www.example.com/&quot;</span><span class="p">&gt;</span>html<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>js</p>
+<div class="highlight"><pre><span></span><code><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;js&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>javascript</p>
+<div class="highlight"><pre><span></span><code><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;javascript&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>json</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;k1&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;k2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>css</p>
+<div class="highlight"><pre><span></span><code><span class="nt">div</span> <span class="p">{</span>
+    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>php</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nb">phpinfo</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$ab</span> <span class="o">.</span> <span class="nv">$cd</span><span class="p">;</span>
+<span class="o">&gt;</span>
+</code></pre></div>
+
+<p>sql</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span><span class="p">;</span> <span class="c1">-- sql</span>
+</code></pre></div>
+
+<p>mysql</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span><span class="p">;</span> <span class="c1"># mysql</span>
+</code></pre></div>
+
+<p>bat</p>
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">echo</span> off
+
+<span class="k">echo</span> <span class="nv">%bat%</span>
+</code></pre></div>
+
+<p>batch</p>
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">echo</span> off
+
+<span class="k">echo</span> <span class="nv">%batch%</span>
+</code></pre></div>
+
+<p>ini</p>
+<div class="highlight"><pre><span></span><code><span class="k">[test]</span>
+<span class="na">type</span> <span class="o">=</span> <span class="s">ini</span>
+</code></pre></div>
+
+<p>console</p>
+<div class="highlight"><pre><span></span><code><span class="gp">root@ubuntu:~#</span> id
+<span class="go">uid=0(root) gid=0(root) groups=0(root)</span>
+<span class="gp">root@ubuntu:~#</span>
+</code></pre></div>
+
+<p>shell-session</p>
+<div class="highlight"><pre><span></span><code><span class="gp">root@ubuntu:~#</span> id
+<span class="go">uid=0(root) gid=0(root) groups=0(root)</span>
+<span class="gp">root@ubuntu:~#</span>
+</code></pre></div>
+
+<p>pycon</p>
+<div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;pycon&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">a</span>
+<span class="go">pycon</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">ZeroDivisionError</span>: <span class="n">integer division or modulo by zero</span>
+</code></pre></div>
+
+<p>matlab</p>
+<div class="highlight"><pre><span></span><code><span class="c">% matlab</span>
+<span class="n">a</span> <span class="p">=</span> <span class="n">xlsread</span><span class="p">(</span><span class="s">&#39;file1.xlsx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;B2:B185726&#39;</span><span class="p">)</span>
+<span class="n">area_zero</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">begin_array</span> <span class="p">=</span> <span class="p">[];</span>
+</code></pre></div>
+
+<p>hexdump</p>
+<div class="highlight"><pre><span></span><code><span class="nl">00000000</span>  <span class="mh">7f</span> <span class="mh">45</span> <span class="mh">4c</span> <span class="mh">46</span> <span class="mh">02</span> <span class="mh">01</span> <span class="mh">01</span> <span class="mh">00</span>  <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span>  <span class="p">|</span><span class="s">.ELF............</span><span class="p">|</span>
+<span class="nl">00000010</span>  <span class="mh">02</span> <span class="mh">00</span> <span class="mh">3e</span> <span class="mh">00</span> <span class="mh">01</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span>  <span class="mh">c5</span> <span class="mh">48</span> <span class="mh">40</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span> <span class="mh">00</span>  <span class="p">|</span><span class="s">..&gt;......H@.....</span><span class="p">|</span>
 </code></pre></div>
 
 <h3 id="Images">Images<a class="headerlink" href="#Images" title="Permanent link">&para;</a></h3>
