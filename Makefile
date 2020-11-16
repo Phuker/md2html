@@ -36,8 +36,8 @@ rebuild build dist/*.whl dist/*.tar.gz: ./setup.py ./md2html/__init__.py
 clean:
 	rm -rf *.egg-info build dist
 
-gen-demo: ./md2html/__init__.py ./demo/demo.md
-	$(PYTHON) ./md2html/__init__.py ./demo/demo.md -vf
+gen-demo: ./md2html/__init__.py ./docs/demo.md
+	$(PYTHON) ./md2html/__init__.py ./docs/demo.md -vf
 
 test: ./test.py
 	$(PYTHON) ./test.py -vv

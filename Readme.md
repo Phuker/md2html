@@ -43,9 +43,9 @@ For details, see `convert()` function of `md2html/__init__.py`, and the demo bel
 
 ## Demo
 
-Download [.zip source code files](https://github.com/Phuker/md2html/archive/main.zip), extract it, and open `demo/demo.html` in your browser.
+See [demo.html](https://phuker.github.io/md2html/demo.html).
 
-This file is generated from `demo/demo.md`. You can see its content to see supported syntax.
+This file is generated from <docs/demo.md>. You can view its content to see supported syntax.
 
 ## Requirements
 
