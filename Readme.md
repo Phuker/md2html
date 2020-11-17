@@ -43,7 +43,9 @@ For details, see `convert()` function of `md2html/__init__.py`, and the demo bel
 
 ## Demo
 
-See [demo.html](https://phuker.github.io/md2html/demo.html).
+For default style, see [docs/demo-default.html](https://phuker.github.io/md2html/demo-default.html).
+
+For sidebar table of contents style generated with `--sidebar-toc`, see [docs/demo-sidebar-toc.html](https://phuker.github.io/md2html/demo-sidebar-toc.html).
 
 This file is generated from [docs/demo.md](./docs/demo.md). You can view its content to see supported syntax.
 

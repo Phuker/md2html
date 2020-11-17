@@ -37,7 +37,8 @@ clean:
 	rm -rf *.egg-info build dist
 
 gen-demo: ./md2html/__init__.py ./docs/demo.md
-	$(PYTHON) ./md2html/__init__.py ./docs/demo.md -vf
+	$(PYTHON) ./md2html/__init__.py -vf ./docs/demo.md -o ./docs/demo-default.html
+	$(PYTHON) ./md2html/__init__.py -vf ./docs/demo.md -o ./docs/demo-sidebar-toc.html --sidebar-toc
 
 test: ./test.py
 	$(PYTHON) ./test.py -vv

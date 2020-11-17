@@ -107,6 +107,7 @@ def parse_args(arg_list=sys.argv[1:]):
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
     parser.add_argument('-o', '--output-file', metavar='FILE', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
 
+    parser.add_argument('--sidebar-toc', action='store_true', help='Sidebar table of contents style')
     parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
 
     parser.add_argument('--no-min-css', dest='min_css', action='store_false', help='Disable minify CSS, default enabled.')
@@ -213,6 +214,10 @@ def render(args, md):
         os.path.join(args.script_dir, 'pygments.css'),
         os.path.join(args.script_dir, 'main.css'),
     ]
+    
+    if args.sidebar_toc:
+        css_file_list.append(os.path.join(args.script_dir, 'sidebar-toc.css'))
+    
     css_file_list += args.append_css
     css_content_list = [read_file(_) for _ in css_file_list]
 
