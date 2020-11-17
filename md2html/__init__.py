@@ -107,7 +107,9 @@ def parse_args(arg_list=sys.argv[1:]):
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
     parser.add_argument('-o', '--output-file', metavar='FILE', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
 
-    parser.add_argument('--sidebar-toc', action='store_true', help='Sidebar table of contents style')
+    style_choices = ['sidebar-toc', ]
+    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=style_choices, help=f'Additional preset style, choices: {", ".join(style_choices)}')
+
     parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
 
     parser.add_argument('--no-min-css', dest='min_css', action='store_false', help='Disable minify CSS, default enabled.')
@@ -173,6 +175,7 @@ def convert(md):
             toc_depth='2-6', # h1 not included
             permalink=True,
             slugify=my_slugify,
+            title='Table of Contents',
         ),
         markdown.extensions.nl2br.Nl2BrExtension(),
         markdown.extensions.admonition.AdmonitionExtension(),
@@ -215,8 +218,8 @@ def render(args, md):
         os.path.join(args.script_dir, 'main.css'),
     ]
     
-    if args.sidebar_toc:
-        css_file_list.append(os.path.join(args.script_dir, 'sidebar-toc.css'))
+    if 'sidebar-toc' in args.style:
+        css_file_list.append(os.path.join(args.script_dir, 'style-sidebar-toc.css'))
     
     css_file_list += args.append_css
     css_content_list = [read_file(_) for _ in css_file_list]

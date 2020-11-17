@@ -101,6 +101,12 @@ div[class=toc] ul {
 div[class=toc] > ul {
     margin: 0;
 }
+div[class=toc] > span[class=toctitle] {
+    border-bottom: 1px solid #EAEAEA;
+    display: block;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
 
 /* footnote */
 sup {

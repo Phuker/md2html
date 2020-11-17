@@ -34,6 +34,7 @@ class TestParseArgs(unittest.TestCase):
         self.assertEqual(args.head_append, [])
         self.assertEqual(args.body_insert, [])
         self.assertEqual(args.body_append, [])
+        self.assertEqual(args.style, [])
 
         args = md2html.parse_args(('--body-insert', '<dict>', '--body-insert', '<cook>'))
         self.assertEqual(args.body_insert, ['<dict>', '<cook>'])
@@ -43,6 +44,11 @@ class TestParseArgs(unittest.TestCase):
             os.path.abspath(os.path.expanduser('~/q/w/e.css')),
             os.path.abspath(os.path.join(PWD, '../qwerty.css')),
         ])
+
+        args = md2html.parse_args(('--style', 'sidebar-toc'))
+        self.assertEqual(args.style, ['sidebar-toc'])
+
+        self.assertRaises(SystemExit, md2html.parse_args, ('--style', 'xxx-not-exist'))
 
     def test_parse_args_matrix(self):
         path_in_1 = '~/abc/defg.md'
