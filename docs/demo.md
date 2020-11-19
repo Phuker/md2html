@@ -6,15 +6,15 @@
 
 ### Basic format
 
-斜体：Emphasis, aka italics, with *asterisks 单星号* or _underscores 单下划线_.
+斜体：Emphasis, aka italics, with *asterisks 单星号* or _underscores 单下划线_
 
-加粗：Strong emphasis, aka bold, with **asterisks 双星号** or __underscores 双下划线__.
+加粗：Strong emphasis, aka bold, with **asterisks 双星号** or __underscores 双下划线__
 
-斜体加粗：Combined emphasis with **asterisks 双星号 and _underscores 单下划线_**.
+斜体加粗：Combined emphasis with **asterisks 双星号 and _underscores 单下划线_**
 
-删除线（非标准语法）：Strikethrough uses ~~two tildes 双波浪线~~. ~~`删除线加行内代码`~~
+删除线（非标准语法）：Strikethrough uses ~~two tildes 双波浪线~~ ~~`删除线加行内代码`~~
 
-高亮（非标准语法）：==test 双等号==
+高亮（非标准语法）：==test 双等号 test==
 
 verylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongverylongEND
 
