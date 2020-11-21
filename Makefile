@@ -39,6 +39,8 @@ clean:
 gen-demo: ./md2html/__init__.py ./docs/demo.md
 	$(PYTHON) ./md2html/__init__.py -vf ./docs/demo.md -o ./docs/demo-default.html -t 'default - md2html demo'
 	$(PYTHON) ./md2html/__init__.py -vf ./docs/demo.md -o ./docs/demo-sidebar-toc.html -t 'sidebar-toc - md2html demo' --style sidebar-toc
+	$(PYTHON) ./md2html/__init__.py -vf ./docs/demo.md -o ./docs/demo-dark.html -t 'dark - md2html demo' --style dark
+	$(PYTHON) ./md2html/__init__.py -vf ./docs/demo.md -o ./docs/demo-sidebar-toc-dark.html -t 'sidebar-toc - dark - md2html demo' --style sidebar-toc --style dark
 
 test: ./test.py
 	$(PYTHON) ./test.py -vv

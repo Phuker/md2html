@@ -43,11 +43,12 @@ For details, see `convert()` function of `md2html/__init__.py`, and the demo bel
 
 ## Demo
 
-For default style, see [docs/demo-default.html](https://phuker.github.io/md2html/demo-default.html).
+- Default style: [docs/demo-default.html](https://phuker.github.io/md2html/demo-default.html)
+- With addon `--style sidebar-toc`: [docs/demo-sidebar-toc.html](https://phuker.github.io/md2html/demo-sidebar-toc.html)
+- With addon `--style dark`: [docs/demo-dark.html](https://phuker.github.io/md2html/demo-dark.html)
+- With addon `--style sidebar-toc --style dark`: [docs/demo-sidebar-toc-dark.html](https://phuker.github.io/md2html/demo-sidebar-toc-dark.html)
 
-For sidebar table of contents style generated with `--style sidebar-toc`, see [docs/demo-sidebar-toc.html](https://phuker.github.io/md2html/demo-sidebar-toc.html).
-
-This file is generated from [docs/demo.md](./docs/demo.md). You can view its content to see supported syntax.
+All above files are generated from [docs/demo.md](./docs/demo.md). You can view its content to see supported syntax.
 
 ## Requirements
 
@@ -83,7 +84,7 @@ optional arguments:
   -f, --force           Force overwrite if output file exists
   -o FILE, --output-file FILE
                         If omitted, auto decide. If "-", stdout.
-  --style PRESET        Additional preset style, choices: sidebar-toc
+  --style PRESET        Preset style addons, choices: sidebar-toc, dark
   --append-css FILE     Append embedded CSS files, may specify multiple times.
   --no-min-css          Disable minify CSS, default enabled.
   --min-html            Enable minify HTML, default disabled.
@@ -138,6 +139,30 @@ Add HTML snippets:
 ```bash
 md2html --head-append '<script async src="https://example.com/analytics.js"></script>' foo.md
 ```
+
+### Use preset style addons
+
+Use `md2html --help` to see all preset addons.
+
+Move table of contents to the sidebar ([demo](https://phuker.github.io/md2html/demo-sidebar-toc.html)):
+
+```bash
+md2html --style sidebar-toc foo.md
+```
+
+Dark theme ([dark](https://phuker.github.io/md2html/demo-dark.html)):
+
+```bash
+md2html --style dark foo.md
+```
+
+Combine `sidebar-toc` and `dark` ([demo](https://phuker.github.io/md2html/demo-sidebar-toc-dark.html)):
+
+```bash
+md2html --style sidebar-toc --style dark foo.md
+```
+
+Note that compatibility is not guaranteed when combining multiple presets, and different ordering may result in different results.
 
 ## Tests
 

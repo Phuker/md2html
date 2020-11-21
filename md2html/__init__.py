@@ -107,8 +107,11 @@ def parse_args(arg_list=sys.argv[1:]):
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
     parser.add_argument('-o', '--output-file', metavar='FILE', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
 
-    style_choices = ['sidebar-toc', ]
-    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=style_choices, help=f'Additional preset style, choices: {", ".join(style_choices)}')
+    style_choices = [
+        'sidebar-toc',
+        'dark',
+    ]
+    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=style_choices, help=f'Preset style addons, choices: {", ".join(style_choices)}')
 
     parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
 
@@ -218,8 +221,12 @@ def render(args, md):
         os.path.join(args.script_dir, 'main.css'),
     ]
     
-    if 'sidebar-toc' in args.style:
-        css_file_list.append(os.path.join(args.script_dir, 'style-sidebar-toc.css'))
+    addon_styles = {
+        'sidebar-toc': 'style-sidebar-toc.css',
+        'dark': 'style-dark.css',
+    }
+    for style_name in args.style:
+        css_file_list.append(os.path.join(args.script_dir, addon_styles[style_name]))
     
     css_file_list += args.append_css
     css_content_list = [read_file(_) for _ in css_file_list]
