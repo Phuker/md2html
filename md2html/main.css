@@ -46,7 +46,7 @@ Modified from Bootstrap v4.5.2 CSS .alert
     padding: 0.5em 1.5em;
     margin-bottom: 1em;
     border: 1px solid transparent;
-    border-radius: 0.25em;
+    /* border-radius: 3px; */ /* sp */
 }
 .admonition p {
     margin: 0.5em 0;
@@ -75,8 +75,8 @@ Modified from Bootstrap v4.5.2 CSS .alert
     border-color: #f5c6cb;
 }
 
-/* Table of Contents */
-div[class=toc] {
+/* [TOC] Table of Contents */
+div.toc {
     width: fit-content;
     min-width: 33%;
 
@@ -84,28 +84,41 @@ div[class=toc] {
     margin: 1em 0;
 
     border: 1px solid #EAEAEA;
-    border-radius: 3px;
+    /* border-radius: 3px; */ /* sp */
     background-color: #F8F8F8;
 
     font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif;
 }
-div[class=toc] li {
-    margin: 0.5em 0;
-    padding: 0;
-}
-div[class=toc] ul {
-    list-style: none;
-    margin: 0 0 0 1.5em;
-    padding: 0;
-}
-div[class=toc] > ul {
-    margin: 0;
-}
-div[class=toc] > span[class=toctitle] {
-    border-bottom: 1px solid #EAEAEA;
+div.toc > span.toctitle {
+    border-bottom: 2px solid #EAEAEA;
     display: block;
     margin-bottom: 0.5em;
     padding-bottom: 0.5em;
+}
+div.toc a:link, div.toc a:visited {
+    text-decoration: none;
+}
+div.toc a:hover, div.toc a:active {
+    text-decoration: underline;
+}
+div.toc ul {
+    list-style: none;
+    padding: 0;
+}
+div.toc li {
+    padding: 0;
+}
+div.toc > ul {
+    margin: 0;
+}
+div.toc > ul > li {
+    margin: 0.6em 0;
+}
+div.toc li > ul {
+    margin: 0 0 0 1.5em;
+}
+div.toc li > ul > li {
+    margin: 0.1em 0;
 }
 
 /* footnote */
