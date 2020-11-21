@@ -144,7 +144,7 @@ md2html --head-append '<script async src="https://example.com/analytics.js"></sc
 
 Use `md2html --help` to see all preset addons.
 
-Move table of contents to the sidebar ([demo](https://phuker.github.io/md2html/demo-sidebar-toc.html)):
+Move table of contents to the sidebar if the window is wide enough: ([demo](https://phuker.github.io/md2html/demo-sidebar-toc.html)):
 
 ```bash
 md2html --style sidebar-toc foo.md

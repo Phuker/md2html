@@ -12,7 +12,9 @@ install: dist/*.whl
 	$(PYTHON) -m pip install dist/*.whl
 	$(PYTHON) -m pip show md2html-phuker
 
-upload: dist/*.whl dist/*.tar.gz
+upload: dist/*.whl
+	test -f dist/*.whl
+	test -f dist/*.tar.gz
 	$(PYTHON) -m twine check dist/*.whl dist/*.tar.gz
 	# username is: __token__
 	$(PYTHON) -m twine upload dist/*.whl dist/*.tar.gz
