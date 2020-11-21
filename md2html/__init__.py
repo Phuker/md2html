@@ -182,7 +182,7 @@ def convert(md):
 
         markdown_link_attr_modifier.LinkAttrModifierExtension(),
         gfm.StrikethroughExtension(),
-        gfm.TaskListExtension(),
+        gfm.TaskListExtension(list_attrs={'class': 'task-list'}, item_attrs={'class': 'task-list-item'}),
     ]
     return markdown.markdown(md, extensions=extensions)
 

@@ -46,7 +46,7 @@ Modified from Bootstrap v4.5.2 CSS .alert
     padding: 0.5em 1.5em;
     margin-bottom: 1em;
     border: 1px solid transparent;
-    /* border-radius: 3px; */ /* sp */
+    border-radius: 3px;
 }
 .admonition p {
     margin: 0.5em 0;
@@ -80,11 +80,11 @@ div.toc {
     width: fit-content;
     min-width: 33%;
 
-    padding: 1em 1.5em;
+    padding: 1.5em 1.5em;
     margin: 1em 0;
 
     border: 1px solid #EAEAEA;
-    /* border-radius: 3px; */ /* sp */
+    border-radius: 3px;
     background-color: #F8F8F8;
 
     font-family: Consolas, Monaco, "Droid Sans Mono", "Courier New", "Microsoft YaHei", "PingFang SC", "WenQuanYi Micro Hei", sans-serif;
@@ -129,6 +129,11 @@ sup {
 }
 a.footnote-backref {
     font-family: monospace; /* avoid emoji in all devices, especially iOS */
+}
+
+/* GFM task list */
+ul.task-list, ol.task-list {
+    padding-left: 1.6em;
 }
 
 /* @media - Small */
