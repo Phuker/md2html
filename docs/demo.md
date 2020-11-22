@@ -204,7 +204,7 @@ Small image (198 x 192):
 
 ![Test small image](test-small.jpg)
 
-Large image (2880 x 1576):
+Large image (2880 x 1576) with transparent background:
 
 ![Test large image](test-large.png)
 

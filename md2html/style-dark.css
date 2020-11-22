@@ -16,6 +16,9 @@ body {
 .markdown-body a.headerlink {
     color: #D0D0D0;
 }
+.markdown-body h6 {
+    color: #D0D0D0;
+}
 .markdown-body code {
     background-color: #202020;
 }
