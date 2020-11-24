@@ -193,7 +193,10 @@ def convert(md):
 def render(args, md):
     logging.info('Start rendering')
     template = '''<!DOCTYPE html>
-<!-- Generated with https://github.com/Phuker/md2html -->
+<!--
+Generated with md2html {version}
+Homepage: https://github.com/Phuker/md2html
+-->
 <html>
 <head>
 {head_insert}<meta charset="utf-8">
@@ -251,6 +254,7 @@ def render(args, md):
         logging.info('Size shrunk %d B/%d B = %.2f %%', size_old - size_new, size_old, (size_old - size_new) / size_old * 100)
 
     template_args = {
+        'version': __version__,
         'title': escape(title),
         'css_html_block': css_html_block,
         'html_content': html_content,
