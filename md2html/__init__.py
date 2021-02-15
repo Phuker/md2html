@@ -183,7 +183,11 @@ def convert(md):
         markdown.extensions.nl2br.Nl2BrExtension(),
         markdown.extensions.admonition.AdmonitionExtension(),
 
-        markdown_link_attr_modifier.LinkAttrModifierExtension(),
+        markdown_link_attr_modifier.LinkAttrModifierExtension(
+            new_tab = 'on',
+            no_referrer = 'external_only',
+            auto_title = 'on',
+        ),
         gfm.StrikethroughExtension(),
         gfm.TaskListExtension(list_attrs={'class': 'task-list'}, item_attrs={'class': 'task-list-item'}),
     ]

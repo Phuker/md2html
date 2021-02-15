@@ -30,7 +30,7 @@ setup(
         'markdown>=3',
         'pygments',
         'css-html-js-minify',
-        'markdown-link-attr-modifier',
+        'markdown-link-attr-modifier >= 0.2.0',
         'py-gfm',
     ],
     classifiers=[
