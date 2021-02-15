@@ -29,7 +29,7 @@ import gfm
 
 from css_html_js_minify import css_minify, html_minify
 
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 
 logging_stream = sys.stderr
 logging_format = '\033[1m%(asctime)s [%(levelname)s]:\033[0m%(message)s'
