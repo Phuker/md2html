@@ -273,7 +273,7 @@ Homepage: https://github.com/Phuker/md2html
 def print_version_exit():
     print(f'md2html version {__version__}')
     print(__doc__)
-    sys.exit(1)
+    sys.exit(0)
 
 
 def main():
