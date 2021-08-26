@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-Generated with md2html 0.4.1
+Generated with md2html 0.4.2
 Homepage: https://github.com/Phuker/md2html
 -->
 <html>
@@ -20,7 +20,7 @@ Homepage: https://github.com/Phuker/md2html
 </head>
 <body>
 <div class="markdown-body">
-<h1>Test Markdown</h1>
+<h1 id="Test-Markdown">Test Markdown<a class="headerlink" href="#Test-Markdown" title="Permanent link">&para;</a></h1>
 <div class="toc"><span class="toctitle">Table of Contents</span><ul>
 <li><a href="#This-is-header-2-%3Cxyzabc-%2F%3E-tag" title="This is header 2 &lt;xyzabc /&gt; tag">This is header 2 &lt;xyzabc /&gt; tag</a><ul>
 <li><a href="#Same-header-3" title="Same header 3">Same header 3</a></li>
@@ -281,8 +281,8 @@ import requests
 
 <p>Code block with <code>```c</code></p>
 <div class="highlight"><pre><span></span><code><span class="cp"># comment aabb</span>
-<span class="cp"># include &lt;stdio.h&gt;</span>
-<span class="n">import</span> <span class="n">requests</span>
+<span class="cp">#</span><span class="w"> </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="n">import</span><span class="w"> </span><span class="n">requests</span><span class="w"></span>
 </code></pre></div>
 
 <p>Code highlighting test 1</p>
@@ -322,35 +322,35 @@ import requests
 <p>Code highlighting test 2</p>
 <div class="highlight"><pre><span></span><code><span class="cm">/* </span>
 <span class="cm">This is a sample C++ file</span>
-<span class="cm">*/</span>
+<span class="cm">*/</span><span class="w"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 <span class="cp">#define true false</span>
 
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span><span class="w"></span>
 
 <span class="c1">// A sample class</span>
-<span class="k">class</span> <span class="nc">Human</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="kt">double</span> <span class="n">length</span> <span class="o">=</span> <span class="mf">123.456</span><span class="p">;</span>
-    <span class="k">private</span> <span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">private</span> <span class="kt">char</span> <span class="n">name</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;Hello&quot;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Human</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">123.456</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">name</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">public</span> <span class="kt">void</span> <span class="n">birthday</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">age</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-        <span class="n">print</span><span class="p">(</span><span class="s">&quot;Happy Birthday!&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">birthday</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">age</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Happy Birthday!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">_str</span>      <span class="o">=</span> <span class="s">&quot;a normal string&quot;</span><span class="p">;</span>
-    <span class="kt">wchar_t</span> <span class="o">*</span><span class="n">L_str</span>  <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;a wide string&quot;</span><span class="p">;</span>
-    <span class="kt">char16_t</span> <span class="o">*</span><span class="n">u_str</span> <span class="o">=</span> <span class="sa">u</span><span class="s">&quot;utf-16 string&quot;</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">_str</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;a normal string&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">wchar_t</span><span class="w"> </span><span class="o">*</span><span class="n">L_str</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a wide string&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char16_t</span><span class="w"> </span><span class="o">*</span><span class="n">u_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u</span><span class="s">&quot;utf-16 string&quot;</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">_str</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">_str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h4 id="Test-lexers-availability">Test lexers availability<a class="headerlink" href="#Test-lexers-availability" title="Permanent link">&para;</a></h4>
@@ -386,18 +386,18 @@ import requests
 
 <p>c</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// c</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>cpp</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// cpp</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>java</p>
@@ -420,9 +420,9 @@ import requests
 </code></pre></div>
 
 <p>markdown</p>
-<div class="highlight"><pre><span></span><code># markdown
+<div class="highlight"><pre><span></span><code><span class="gh"># markdown</span>
 
-[abc](https://b.com/)
+[<span class="nt">abc</span>](<span class="na">https://b.com/</span>)
 </code></pre></div>
 
 <p>xml</p>
@@ -512,10 +512,10 @@ import requests
 </code></pre></div>
 
 <p>matlab</p>
-<div class="highlight"><pre><span></span><code><span class="c">% matlab</span>
-<span class="n">a</span> <span class="p">=</span> <span class="n">xlsread</span><span class="p">(</span><span class="s">&#39;file1.xlsx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;B2:B185726&#39;</span><span class="p">)</span>
-<span class="n">area_zero</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">begin_array</span> <span class="p">=</span> <span class="p">[];</span>
+<div class="highlight"><pre><span></span><code><span class="c">% matlab</span><span class="w"></span>
+<span class="n">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">xlsread</span><span class="p">(</span><span class="s">&#39;file1.xlsx&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;B2:B185726&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="n">area_zero</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="n">begin_array</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
 </code></pre></div>
 
 <p>hexdump</p>
