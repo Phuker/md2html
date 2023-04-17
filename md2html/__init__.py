@@ -27,7 +27,6 @@ import markdown.extensions.admonition
 import markdown_link_attr_modifier
 import gfm
 
-from css_html_js_minify import css_minify, html_minify
 
 __version__ = '0.4.2'
 
@@ -114,9 +113,6 @@ def parse_args(arg_list=sys.argv[1:]):
     parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=style_choices, help=f'Preset style addons, choices: {", ".join(style_choices)}')
 
     parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
-
-    parser.add_argument('--no-min-css', dest='min_css', action='store_false', help='Disable minify CSS, default enabled.')
-    parser.add_argument('--min-html', dest='min_html', action='store_true', help='Enable minify HTML, default disabled.')
 
     parser.add_argument('--head-insert', metavar='HTML', action='append', default=[], help='HTML to insert to the start of <head>, may specify multiple times.')
     parser.add_argument('--head-append', metavar='HTML', action='append', default=[], help='HTML to append to the end of <head>, may specify multiple times.')
@@ -237,25 +233,11 @@ Homepage: https://github.com/Phuker/md2html
     
     css_file_list += args.append_css
     css_content_list = [read_file(_) for _ in css_file_list]
-
-    if args.min_css:
-        logging.info('Minify CSS')
-        size_old = sum(map(len, css_content_list))
-        css_content_list = [css_minify(_, comments=False) for _ in css_content_list]
-        size_new = sum(map(len, css_content_list))
-        logging.info('Size shrunk %d B/%d B = %.2f %%', size_old - size_new, size_old, (size_old - size_new) / size_old * 100)
     
     css_html_block = '\n'.join(['<style type="text/css">\n' + _ + '\n</style>' for _ in css_content_list])
 
     logging.info('Converting Markdown')
     html_content = convert(md)
-
-    if args.min_html:
-        logging.info('Minify HTML')
-        size_old = len(html_content)
-        html_content = html_minify(html_content, comments=False)
-        size_new = len(html_content)
-        logging.info('Size shrunk %d B/%d B = %.2f %%', size_old - size_new, size_old, (size_old - size_new) / size_old * 100)
 
     template_args = {
         'version': __version__,

@@ -7,7 +7,6 @@ This is a *feng-he-guai* program. Python code based on:
 - [Python-Markdown](https://python-markdown.github.io/) and its officially supported extensions
 - [Phuker/markdown_link_attr_modifier](https://github.com/Phuker/markdown_link_attr_modifier), my `Python-Markdown` extension to add attributes like `target="_blank"` to `<a>` tags
 - [Zopieux/py-gfm](https://github.com/Zopieux/py-gfm), a `Python-Markdown` extension to support some [GFM](https://github.github.com/gfm/) features
-- [juancarlospaco/css-html-js-minify](https://github.com/juancarlospaco/css-html-js-minify), a library to minify CSS and HTML code
 
 CSS based on:
 
@@ -68,14 +67,14 @@ There are too many similar projects with similar names in PyPI, `md2html`, `md-t
 
 ```console
 $ md2html --help
-usage: md2html [-h] [-v] [-V] [-t TITLE] [-f] [-o FILE] [--style PRESET] [--append-css FILE] [--no-min-css] [--min-html] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [input_file]
+usage: md2html [-h] [-v] [-V] [-t TITLE] [-f] [-o FILE] [--style PRESET] [--append-css FILE] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [input_file]
 
 Yet another markdown to html converter, generate an offline all-in-one single HTML file.
 
 positional arguments:
   input_file            If omitted or "-", use stdin.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -v, --verbose         Verbose output
   -V, --version         Output version info and exit
@@ -86,8 +85,6 @@ optional arguments:
                         If omitted, auto decide. If "-", stdout.
   --style PRESET        Preset style addons, choices: sidebar-toc, dark
   --append-css FILE     Append embedded CSS files, may specify multiple times.
-  --no-min-css          Disable minify CSS, default enabled.
-  --min-html            Enable minify HTML, default disabled.
   --head-insert HTML    HTML to insert to the start of <head>, may specify multiple times.
   --head-append HTML    HTML to append to the end of <head>, may specify multiple times.
   --body-insert HTML    HTML to insert to the start of <body>, may specify multiple times.
