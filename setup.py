@@ -10,7 +10,7 @@ setup(
     name='md2html-phuker',
     description='Yet another markdown to html converter, generate an offline all-in-one single HTML file.',
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     author='Phuker',
     author_email='Phuker@users.noreply.github.com',
     url='https://github.com/Phuker/md2html',
@@ -19,7 +19,7 @@ setup(
     packages=['md2html'],
     py_modules = [],
     package_data={
-        "md2html": ["*.css"],
+        'md2html': ['*.css'],
     },
     entry_points={
         'console_scripts': [
