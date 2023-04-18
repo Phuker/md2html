@@ -7,13 +7,14 @@ import unittest
 
 import md2html
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
 
+ROOT = os.path.dirname(os.path.abspath(__file__))
 PWD = os.getcwd()
 
 TITLE_UNTITLED = 'Untitled'
 
 print(f'Testing md2html: {md2html!r}')
+
 
 class TestParseArgs(unittest.TestCase):
     def test_parse_args_wrong_input(self):
@@ -25,30 +26,30 @@ class TestParseArgs(unittest.TestCase):
             ('a.md', '-o'),
         )
         for case in cases:
-            self.assertRaises(SystemExit, md2html.parse_args, case)
+            self.assertRaises(SystemExit, md2html._parse_args, case)
     
     def test_multiple_specified_args(self):
-        args = md2html.parse_args(())
-        self.assertEqual(args.append_css, [])
-        self.assertEqual(args.head_insert, [])
-        self.assertEqual(args.head_append, [])
-        self.assertEqual(args.body_insert, [])
-        self.assertEqual(args.body_append, [])
-        self.assertEqual(args.style, [])
+        shell_args = md2html._parse_args(())
+        self.assertEqual(shell_args.append_css, [])
+        self.assertEqual(shell_args.head_insert, [])
+        self.assertEqual(shell_args.head_append, [])
+        self.assertEqual(shell_args.body_insert, [])
+        self.assertEqual(shell_args.body_append, [])
+        self.assertEqual(shell_args.style, [])
 
-        args = md2html.parse_args(('--body-insert', '<dict>', '--body-insert', '<cook>'))
-        self.assertEqual(args.body_insert, ['<dict>', '<cook>'])
+        shell_args = md2html._parse_args(('--body-insert', '<dict>', '--body-insert', '<cook>'))
+        self.assertEqual(shell_args.body_insert, ['<dict>', '<cook>'])
 
-        args = md2html.parse_args(('--append-css', '~/q/w/e.css', '--append-css', '../qwerty.css'))
-        self.assertEqual(args.append_css, [
+        shell_args = md2html._parse_args(('--append-css', '~/q/w/e.css', '--append-css', '../qwerty.css'))
+        self.assertEqual(shell_args.append_css, [
             os.path.abspath(os.path.expanduser('~/q/w/e.css')),
             os.path.abspath(os.path.join(PWD, '../qwerty.css')),
         ])
 
-        args = md2html.parse_args(('--style', 'sidebar-toc'))
-        self.assertEqual(args.style, ['sidebar-toc'])
+        shell_args = md2html._parse_args(('--style', 'sidebar-toc'))
+        self.assertEqual(shell_args.style, ['sidebar-toc'])
 
-        self.assertRaises(SystemExit, md2html.parse_args, ('--style', 'xxx-not-exist'))
+        self.assertRaises(SystemExit, md2html._parse_args, ('--style', 'xxx-not-exist'))
 
     def test_parse_args_matrix(self):
         path_in_1 = '~/abc/defg.md'
@@ -129,12 +130,12 @@ class TestParseArgs(unittest.TestCase):
 
         for case in cases:
             result_tuple = cases[case]
-            args = md2html.parse_args(case)
+            shell_args = md2html._parse_args(case)
             
-            self.assertEqual(args.input_file_obj, result_tuple[0])
-            self.assertEqual(args.output_file_obj, result_tuple[1])
-            self.assertEqual(args.title, result_tuple[2])
+            self.assertEqual(shell_args.input_file_obj, result_tuple[0])
+            self.assertEqual(shell_args.output_file_obj, result_tuple[1])
+            self.assertEqual(shell_args.title, result_tuple[2])
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

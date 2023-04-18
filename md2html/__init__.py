@@ -3,11 +3,6 @@
 
 """
 Yet another markdown to html converter, generate an offline all-in-one single HTML file.
-
-License:
-GNU General Public License v3.0
-
-Home page:
 https://github.com/Phuker/md2html
 """
 
@@ -15,7 +10,9 @@ import os
 import sys
 import argparse
 import logging
-from html import escape # Python 3 only
+import atexit
+import urllib.parse
+from html import escape
 
 import markdown
 import markdown.extensions.codehilite
@@ -23,94 +20,64 @@ import markdown.extensions.extra
 import markdown.extensions.toc
 import markdown.extensions.nl2br
 import markdown.extensions.admonition
-
 import markdown_link_attr_modifier
 import gfm
 
 
 __version__ = '0.4.2'
+logger = logging.getLogger(__name__)
 
-logging_stream = sys.stderr
-logging_format = '\033[1m%(asctime)s [%(levelname)s]:\033[0m%(message)s'
+VERSION_STR_SHORT = f'md2html version {__version__}'
+VERSION_STR_LONG = f'md2html version {__version__}\n{__doc__.strip()}'
 
-if 'DEBUG' in os.environ:
-    logging_level = logging.DEBUG
-else:
+
+def _assert(expr, msg=''):
+    if not expr:
+        raise AssertionError(msg)
+
+
+def _init_logging():
+    logging_stream = sys.stderr
+    logging_format = '\x1b[1m%(asctime)s [%(levelname)s]:\x1b[0m%(message)s'
     logging_level = logging.INFO
 
-if logging_stream.isatty():
-    logging_date_format = '%H:%M:%S'
-else:
-    print('', file=logging_stream)
-    logging_date_format = '%Y-%m-%d %H:%M:%S'
+    if logging_stream.isatty():
+        logging_date_format = '%H:%M:%S'
+    else:
+        logging_date_format = '%Y-%m-%d %H:%M:%S %z'
 
-logging.basicConfig(
-    level=logging_level,
-    format=logging_format,
-    datefmt=logging_date_format,
-    stream=logging_stream,
-)
+    logging.basicConfig(
+        level=logging_level,
+        format=logging_format,
+        datefmt=logging_date_format,
+        stream=logging_stream,
+    )
 
-logging.addLevelName(logging.CRITICAL, '\033[31m{}\033[39m'.format(logging.getLevelName(logging.CRITICAL)))
-logging.addLevelName(logging.ERROR, '\033[31m{}\033[39m'.format(logging.getLevelName(logging.ERROR)))
-logging.addLevelName(logging.WARNING, '\033[33m{}\033[39m'.format(logging.getLevelName(logging.WARNING)))
-logging.addLevelName(logging.INFO, '\033[36m{}\033[39m'.format(logging.getLevelName(logging.INFO)))
-logging.addLevelName(logging.DEBUG, '\033[36m{}\033[39m'.format(logging.getLevelName(logging.DEBUG)))
-
-
-if sys.flags.optimize > 0:
-    logging.critical('Do not run with "-O", assert require no optimize')
-    sys.exit(1)
+    logging.addLevelName(logging.CRITICAL, '\x1b[31m{}\x1b[39m'.format(logging.getLevelName(logging.CRITICAL)))
+    logging.addLevelName(logging.ERROR, '\x1b[31m{}\x1b[39m'.format(logging.getLevelName(logging.ERROR)))
+    logging.addLevelName(logging.WARNING, '\x1b[33m{}\x1b[39m'.format(logging.getLevelName(logging.WARNING)))
+    logging.addLevelName(logging.INFO, '\x1b[36m{}\x1b[39m'.format(logging.getLevelName(logging.INFO)))
+    logging.addLevelName(logging.DEBUG, '\x1b[36m{}\x1b[39m'.format(logging.getLevelName(logging.DEBUG)))
 
 
-# obj: fd or str
-def read_file(obj):
-    try:
-        if type(obj) == str:
-            logging.info('Reading %r', obj)
-            with open(obj, 'r') as f:
-                return f.read()
-        else:
-            logging.info('Reading %s', obj.name)
-            return obj.read()
-    except Exception as e:
-        logging.error('%r %r', type(e), e)
-        sys.exit(1)
+def _parse_args(args=sys.argv[1:]):
+    choices_style = [
+        'sidebar-toc',
+        'dark',
+    ]
 
-
-# obj: fd or str
-def write_file(obj, content):
-    try:
-        if type(obj) == str:
-            logging.info('Writing %d Bytes to %r', len(content), obj)
-            with open(obj, 'w') as f:
-                f.write(content)
-        else:
-            logging.info('Writing %d Bytes to %s', len(content), obj.name)
-            obj.write(content)
-    except Exception as e:
-        logging.error('%r %r', type(e), e)
-        sys.exit(1)
-
-
-def parse_args(arg_list=sys.argv[1:]):
     parser = argparse.ArgumentParser(
-        description='Yet another markdown to html converter, generate an offline all-in-one single HTML file.',
+        description=VERSION_STR_LONG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
         add_help=True
     )
-    parser.add_argument('-v', '--verbose', action='count', default=0, help='Verbose output')
-    parser.add_argument('-V', '--version', action='store_true', help='Output version info and exit')
 
     parser.add_argument('-t', '--title', help='If omitted, generate from input filename')
     parser.add_argument('-f', '--force', action='store_true', help='Force overwrite if output file exists')
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
     parser.add_argument('-o', '--output-file', metavar='FILE', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
 
-    style_choices = [
-        'sidebar-toc',
-        'dark',
-    ]
-    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=style_choices, help=f'Preset style addons, choices: {", ".join(style_choices)}')
+    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=choices_style, help=f'Preset style addons, choices: {", ".join(choices_style)}')
 
     parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
 
@@ -119,47 +86,79 @@ def parse_args(arg_list=sys.argv[1:]):
     parser.add_argument('--body-insert', metavar='HTML', action='append', default=[], help='HTML to insert to the start of <body>, may specify multiple times.')
     parser.add_argument('--body-append', metavar='HTML', action='append', default=[], help='HTML to append to the end of <body>, may specify multiple times.')
 
-    args = parser.parse_args(arg_list)
-    
-    # set args.input_file_obj
-    if not args.input_file: # None, ''
-        args.input_file_obj = sys.stdin
-    elif args.input_file == '-':
-        args.input_file_obj = sys.stdin
+    parser.add_argument('-V', '--version', action='store_true', help='Show version and exit')
+    parser.add_argument('-v', '--verbose', action='count', default=0, help='Increase verbosity level (use -vv or more for greater effect)')
+
+    result = parser.parse_args(args)
+
+    if result.verbose >= 1:
+        logging.root.setLevel(logging.DEBUG)
+
+    # set result.input_file_obj
+    if not result.input_file: # None, ''
+        result.input_file_obj = sys.stdin
+    elif result.input_file == '-':
+        result.input_file_obj = sys.stdin
     else:
-        args.input_file = os.path.abspath(os.path.expanduser(args.input_file))
-        args.input_file_obj = args.input_file # str
+        result.input_file = os.path.abspath(os.path.expanduser(result.input_file))
+        result.input_file_obj = result.input_file # str
     
-    # set args.output_file_obj
-    if args.output_file == '-':
-        args.output_file_obj = sys.stdout
-    elif not args.output_file: # None, ''
-        if not args.input_file or args.input_file == '-':
-            args.output_file_obj = sys.stdout
+    # set result.output_file_obj
+    if result.output_file == '-':
+        result.output_file_obj = sys.stdout
+    elif not result.output_file: # None, ''
+        if not result.input_file or result.input_file == '-':
+            result.output_file_obj = sys.stdout
         else:
-            args.output_file_obj = os.path.splitext(args.input_file)[0] + '.html' # str
+            result.output_file_obj = os.path.splitext(result.input_file)[0] + '.html' # str
     else:
-        args.output_file = os.path.abspath(os.path.expanduser(args.output_file))
-        args.output_file_obj = args.output_file # str
+        result.output_file = os.path.abspath(os.path.expanduser(result.output_file))
+        result.output_file_obj = result.output_file # str
 
-    # set args.title if not specified
-    if args.title is None:
-        if not args.input_file or args.input_file == '-':
-            args.title = 'Untitled'
+    # set result.title if not specified
+    if result.title is None:
+        if not result.input_file or result.input_file == '-':
+            result.title = 'Untitled'
         else:
-            args.title = os.path.splitext(os.path.basename(args.input_file))[0]
+            result.title = os.path.splitext(os.path.basename(result.input_file))[0]
 
-    args.append_css = [os.path.abspath(os.path.expanduser(_)) for _ in args.append_css]
+    result.append_css = [os.path.abspath(os.path.expanduser(_)) for _ in result.append_css]
 
-    # set args.script_dir
-    args.script_dir = os.path.abspath(os.path.dirname(__file__))
+    # set result.script_dir
+    result.script_dir = os.path.abspath(os.path.dirname(__file__))
 
-    return args
+    logger.debug('Command line arguments: %r', result)
+
+    if result.version:
+        print(VERSION_STR_LONG)
+        sys.exit(0)
+
+    return result
+
+
+# obj: fd or str
+def read_file(obj):
+    if isinstance(obj, str):
+        logger.info('Reading %r', obj)
+        with open(obj, 'r') as f:
+            return f.read()
+    else:
+        logger.info('Reading %s', obj.name)
+        return obj.read()
+
+
+# obj: fd or str
+def write_file(obj, content):
+    if isinstance(obj, str):
+        logger.info('Writing to %r', obj)
+        with open(obj, 'w') as f:
+            f.write(content)
+    else:
+        logger.info('Writing to %s', obj.name)
+        obj.write(content)
 
 
 def convert(md):
-    import urllib.parse # Python 3 only
-
     def my_slugify(value, sep):
         return urllib.parse.quote_plus(value.replace(' ', sep))
     
@@ -190,8 +189,8 @@ def convert(md):
     return markdown.markdown(md, extensions=extensions)
 
 
-def render(args, md):
-    logging.info('Start rendering')
+def render(shell_args, md):
+    logger.info('Start rendering')
     template = '''<!DOCTYPE html>
 <!--
 Generated with md2html {version}
@@ -211,32 +210,32 @@ Homepage: https://github.com/Phuker/md2html
 {body_append}</body>
 </html>
 '''
-    title = args.title
+    title = shell_args.title
 
-    head_insert = ''.join([_ + '\n' for _ in args.head_insert])
-    head_append = ''.join([_ + '\n' for _ in args.head_append])
-    body_insert = ''.join([_ + '\n' for _ in args.body_insert])
-    body_append = ''.join([_ + '\n' for _ in args.body_append])
+    head_insert = ''.join([_ + '\n' for _ in shell_args.head_insert])
+    head_append = ''.join([_ + '\n' for _ in shell_args.head_append])
+    body_insert = ''.join([_ + '\n' for _ in shell_args.body_insert])
+    body_append = ''.join([_ + '\n' for _ in shell_args.body_append])
 
     css_file_list = [
-        os.path.join(args.script_dir, 'github-markdown.css'),
-        os.path.join(args.script_dir, 'pygments.css'),
-        os.path.join(args.script_dir, 'main.css'),
+        os.path.join(shell_args.script_dir, 'github-markdown.css'),
+        os.path.join(shell_args.script_dir, 'pygments.css'),
+        os.path.join(shell_args.script_dir, 'main.css'),
     ]
     
     addon_styles = {
         'sidebar-toc': 'style-sidebar-toc.css',
         'dark': 'style-dark.css',
     }
-    for style_name in args.style:
-        css_file_list.append(os.path.join(args.script_dir, addon_styles[style_name]))
+    for style_name in shell_args.style:
+        css_file_list.append(os.path.join(shell_args.script_dir, addon_styles[style_name]))
     
-    css_file_list += args.append_css
+    css_file_list += shell_args.append_css
     css_content_list = [read_file(_) for _ in css_file_list]
     
     css_html_block = '\n'.join(['<style type="text/css">\n' + _ + '\n</style>' for _ in css_content_list])
 
-    logging.info('Converting Markdown')
+    logger.info('Converting Markdown')
     html_content = convert(md)
 
     template_args = {
@@ -252,39 +251,31 @@ Homepage: https://github.com/Phuker/md2html
     return template.format(**template_args)
 
 
-def print_version_exit():
-    print(f'md2html version {__version__}')
-    print(__doc__)
-    sys.exit(0)
-
-
 def main():
-    args = parse_args()
+    _init_logging()
+    shell_args = _parse_args()
 
-    if args.verbose > 0:
-        logging.root.setLevel(logging.DEBUG)
-        logging.debug('Verbose output enabled')
-    
-    logging.debug('This file is: %r', __file__)
-    logging.debug('sys.argv = %r', sys.argv)
-    logging.debug('parse_args() result: %r', args)
+    if sys.stderr.isatty():
+        atexit.register(lambda: logger.info('Exiting'))
+    else:
+        atexit.register(lambda: logger.info('Exiting\n'))
 
-    if args.version:
-        print_version_exit()
+    logger.info(VERSION_STR_SHORT)
+    logger.debug('Script file self path: %r', __file__)
 
-    if type(args.output_file_obj) == str and os.path.exists(args.output_file_obj) and not args.force:
-        logging.error('%r already exists. Use -f to overwrite.', args.output_file_obj)
+    if isinstance(shell_args.output_file_obj, str) and os.path.exists(shell_args.output_file_obj) and not shell_args.force:
+        logger.error('%r already exists. Use -f to overwrite.', shell_args.output_file_obj)
         sys.exit(1)
     
-    logging.info('Page title is: %r', args.title)
-    if len(args.append_css) > 0:
-        logging.info('Append embedded CSS files: %s', ', '.join([repr(_) for _ in args.append_css]))
+    logger.info('Page title is: %r', shell_args.title)
+    
+    if len(shell_args.append_css) > 0:
+        logger.info('Append embedded CSS files: %s', ', '.join([repr(_) for _ in shell_args.append_css]))
 
-    md = read_file(args.input_file_obj)
-    result = render(args, md)
-    write_file(args.output_file_obj, result)
+    md = read_file(shell_args.input_file_obj)
+    result = render(shell_args, md)
+    write_file(shell_args.output_file_obj, result)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
-
