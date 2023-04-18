@@ -330,6 +330,8 @@ A 7680 x 4320 (8K) image with caption:
 
 ![test-large2.png](test-large2.png 'A 7680 x 4320 (8K) image')
 
+Images with long captions:
+
 ![test-small.jpg](test-small.jpg 'ThisCaptionIs VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong END')
 
 ![test-large.png](test-large.png 'ThisCaptionIs VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong END')

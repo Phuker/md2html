@@ -1108,6 +1108,12 @@ body {
     visibility: visible;
 }
 
+.markdown-body img.inline {
+    display: inline;
+    vertical-align: text-bottom;
+    max-height: 2em;
+}
+
 /* 
 Admonition alerts
 Modified from Bootstrap v4.5.2 CSS .alert
@@ -1687,6 +1693,7 @@ div.toc>span.toctitle {
 <p><img alt="test-large.png" src="test-large.png" title="A 2880 x 1576 image with transparent background" /></p>
 <p>A 7680 x 4320 (8K) image with caption:</p>
 <p><img alt="test-large2.png" src="test-large2.png" title="A 7680 x 4320 (8K) image" /></p>
+<p>Images with long captions:</p>
 <p><img alt="test-small.jpg" src="test-small.jpg" title="ThisCaptionIs VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong END" /></p>
 <p><img alt="test-large.png" src="test-large.png" title="ThisCaptionIs VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong VeryLongVeryLong END" /></p>
 <p><img alt="test-large2.png" src="test-large2.png" title="ThisCaptionIsVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongVeryLongEND" /></p>

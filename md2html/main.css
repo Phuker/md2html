@@ -37,6 +37,12 @@ body {
     visibility: visible;
 }
 
+.markdown-body img.inline {
+    display: inline;
+    vertical-align: text-bottom;
+    max-height: 2em;
+}
+
 /* 
 Admonition alerts
 Modified from Bootstrap v4.5.2 CSS .alert
