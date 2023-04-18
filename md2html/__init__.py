@@ -24,7 +24,7 @@ import markdown_link_attr_modifier
 import gfm
 
 
-__version__ = '0.4.2'
+__version__ = '0.5.0'
 logger = logging.getLogger(__name__)
 
 VERSION_STR_SHORT = f'md2html version {__version__}'

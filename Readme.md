@@ -67,17 +67,17 @@ There are too many similar projects with similar names in PyPI, `md2html`, `md-t
 
 ```console
 $ md2html --help
-usage: md2html [-h] [-v] [-V] [-t TITLE] [-f] [-o FILE] [--style PRESET] [--append-css FILE] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [input_file]
+usage: md2html [-h] [-t TITLE] [-f] [-o FILE] [--style PRESET] [--append-css FILE] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [-V] [-v] [input_file]
 
+md2html version 0.5.0
 Yet another markdown to html converter, generate an offline all-in-one single HTML file.
+https://github.com/Phuker/md2html
 
 positional arguments:
   input_file            If omitted or "-", use stdin.
 
 options:
   -h, --help            show this help message and exit
-  -v, --verbose         Verbose output
-  -V, --version         Output version info and exit
   -t TITLE, --title TITLE
                         If omitted, generate from input filename
   -f, --force           Force overwrite if output file exists
@@ -89,6 +89,8 @@ options:
   --head-append HTML    HTML to append to the end of <head>, may specify multiple times.
   --body-insert HTML    HTML to insert to the start of <body>, may specify multiple times.
   --body-append HTML    HTML to append to the end of <body>, may specify multiple times.
+  -V, --version         Show version and exit
+  -v, --verbose         Increase verbosity level (use -vv or more for greater effect)
 ```
 
 If you are not sure about what will happen if you combine `[-o FILE]`, `[input_file]` and `[-t TITLE]`, see `test.py`, which contains tens of input cases and their intended behaviors.
