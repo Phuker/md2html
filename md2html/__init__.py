@@ -25,10 +25,10 @@ import gfm
 
 
 __version__ = '0.5.0'
-logger = logging.getLogger(__name__)
+VERSION_STR_SHORT = f'md2html {__version__}'
+VERSION_STR_LONG = f'md2html {__version__}\n{__doc__.strip()}'
 
-VERSION_STR_SHORT = f'md2html version {__version__}'
-VERSION_STR_LONG = f'md2html version {__version__}\n{__doc__.strip()}'
+logger = logging.getLogger(__name__)
 
 
 def _assert(expr, msg=''):
@@ -77,7 +77,7 @@ def _parse_args(args=sys.argv[1:]):
     parser.add_argument('input_file', nargs='?', help='If omitted or "-", use stdin.')
     parser.add_argument('-o', '--output-file', metavar='FILE', dest='output_file', help='If omitted, auto decide. If "-", stdout.')
 
-    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=choices_style, help=f'Preset style addons, choices: {", ".join(choices_style)}')
+    parser.add_argument('--style', metavar='PRESET', action='append', default=[], choices=choices_style, help='Preset style addons, choices: %(choices)s')
 
     parser.add_argument('--append-css', metavar='FILE', action='append', default=[], help='Append embedded CSS files, may specify multiple times.')
 
@@ -86,7 +86,7 @@ def _parse_args(args=sys.argv[1:]):
     parser.add_argument('--body-insert', metavar='HTML', action='append', default=[], help='HTML to insert to the start of <body>, may specify multiple times.')
     parser.add_argument('--body-append', metavar='HTML', action='append', default=[], help='HTML to append to the end of <body>, may specify multiple times.')
 
-    parser.add_argument('-V', '--version', action='store_true', help='Show version and exit')
+    parser.add_argument('-V', '--version', action='version', version=VERSION_STR_LONG, help='Show version and exit')
     parser.add_argument('-v', '--verbose', action='count', default=0, help='Increase verbosity level (use -vv or more for greater effect)')
 
     result = parser.parse_args(args)
@@ -128,10 +128,6 @@ def _parse_args(args=sys.argv[1:]):
     result.script_dir = os.path.abspath(os.path.dirname(__file__))
 
     logger.debug('Command line arguments: %r', result)
-
-    if result.version:
-        print(VERSION_STR_LONG)
-        sys.exit(0)
 
     return result
 
