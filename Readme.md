@@ -69,7 +69,7 @@ There are too many similar projects with similar names in PyPI, `md2html`, `md-t
 $ md2html --help
 usage: md2html [-h] [-t TITLE] [-f] [-o FILE] [--style PRESET] [--append-css FILE] [--head-insert HTML] [--head-append HTML] [--body-insert HTML] [--body-append HTML] [-V] [-v] [input_file]
 
-md2html version 0.5.0
+md2html 0.5.1
 Yet another markdown to html converter, generate an offline all-in-one single HTML file.
 https://github.com/Phuker/md2html
 
