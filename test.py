@@ -5,7 +5,7 @@ import os
 import sys
 import unittest
 
-import md2html
+from md2html import md2html
 
 
 ROOT = os.path.dirname(os.path.abspath(__file__))

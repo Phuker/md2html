@@ -38,7 +38,7 @@ Default enabled Markdown features:
 - `<a target="_blank"`
 - Part of GitHub Flavored Markdown
 
-For details, see `convert()` function of `md2html/__init__.py`, and the demo below.
+For details, see `convert()` function of `md2html/md2html.py`, and the demo below.
 
 ## Demo
 

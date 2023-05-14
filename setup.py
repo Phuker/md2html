@@ -23,7 +23,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'md2html=md2html:main'
+            'md2html=md2html.md2html:main'
         ]
     },
     install_requires=[
