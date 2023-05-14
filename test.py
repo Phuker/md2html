@@ -26,10 +26,10 @@ class TestParseArgs(unittest.TestCase):
             ('a.md', '-o'),
         )
         for case in cases:
-            self.assertRaises(SystemExit, md2html._parse_args, case)
+            self.assertRaises(SystemExit, md2html.parse_args, case)
     
     def test_multiple_specified_args(self):
-        shell_args = md2html._parse_args(())
+        shell_args = md2html.parse_args(())
         self.assertEqual(shell_args.append_css, [])
         self.assertEqual(shell_args.head_insert, [])
         self.assertEqual(shell_args.head_append, [])
@@ -37,19 +37,19 @@ class TestParseArgs(unittest.TestCase):
         self.assertEqual(shell_args.body_append, [])
         self.assertEqual(shell_args.style, [])
 
-        shell_args = md2html._parse_args(('--body-insert', '<dict>', '--body-insert', '<cook>'))
+        shell_args = md2html.parse_args(('--body-insert', '<dict>', '--body-insert', '<cook>'))
         self.assertEqual(shell_args.body_insert, ['<dict>', '<cook>'])
 
-        shell_args = md2html._parse_args(('--append-css', '~/q/w/e.css', '--append-css', '../qwerty.css'))
+        shell_args = md2html.parse_args(('--append-css', '~/q/w/e.css', '--append-css', '../qwerty.css'))
         self.assertEqual(shell_args.append_css, [
             os.path.abspath(os.path.expanduser('~/q/w/e.css')),
             os.path.abspath(os.path.join(PWD, '../qwerty.css')),
         ])
 
-        shell_args = md2html._parse_args(('--style', 'sidebar-toc'))
+        shell_args = md2html.parse_args(('--style', 'sidebar-toc'))
         self.assertEqual(shell_args.style, ['sidebar-toc'])
 
-        self.assertRaises(SystemExit, md2html._parse_args, ('--style', 'xxx-not-exist'))
+        self.assertRaises(SystemExit, md2html.parse_args, ('--style', 'xxx-not-exist'))
 
     def test_parse_args_matrix(self):
         path_in_1 = '~/abc/defg.md'
@@ -130,7 +130,7 @@ class TestParseArgs(unittest.TestCase):
 
         for case in cases:
             result_tuple = cases[case]
-            shell_args = md2html._parse_args(case)
+            shell_args = md2html.parse_args(case)
             
             self.assertEqual(shell_args.input_file_obj, result_tuple[0])
             self.assertEqual(shell_args.output_file_obj, result_tuple[1])

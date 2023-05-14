@@ -36,7 +36,7 @@ def _assert(expr, msg=''):
         raise AssertionError(msg)
 
 
-def _init_logging():
+def init_logging():
     logging_stream = sys.stderr
     logging_format = '\x1b[1m%(asctime)s [%(levelname)s]:\x1b[0m%(message)s'
     logging_level = logging.INFO
@@ -60,7 +60,7 @@ def _init_logging():
     logging.addLevelName(logging.DEBUG, '\x1b[36m{}\x1b[39m'.format(logging.getLevelName(logging.DEBUG)))
 
 
-def _parse_args(args=sys.argv[1:]):
+def parse_args(args=None):
     choices_style = [
         'sidebar-toc',
         'dark',
@@ -249,8 +249,8 @@ Homepage: https://github.com/Phuker/md2html
 
 
 def main():
-    _init_logging()
-    shell_args = _parse_args()
+    init_logging()
+    shell_args = parse_args()
 
     if sys.stderr.isatty():
         atexit.register(lambda: logger.info('Exiting'))
