@@ -24,7 +24,7 @@ import markdown_link_attr_modifier
 import gfm
 
 
-__version__ = '0.5.1'
+__version__ = '0.5.2'
 VERSION_STR_SHORT = f'md2html {__version__}'
 VERSION_STR_LONG = f'md2html {__version__}\n{__doc__.strip()}'
 
